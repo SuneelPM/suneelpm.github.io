@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 9: Semantic HTML</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Simple styles for semantic elements demonstration */
+      .semantic-example header {
+        background-color: #dbeafe;
+        border: 1px solid #93c5fd;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .semantic-example nav {
+        background-color: #e0e7ff;
+        border: 1px solid #a5b4fc;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .semantic-example main {
+        border: 1px dashed #60a5fa;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .semantic-example section {
+        background-color: #f0f9ff;
+        border: 1px solid #bae6fd;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+      .semantic-example article {
+        background-color: #eef2ff;
+        border: 1px solid #c7d2fe;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+      .semantic-example aside {
+        background-color: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        float: right;
+        width: 30%;
+        margin-left: 1rem;
+      }
+      .semantic-example footer {
+        background-color: #dbeafe;
+        border: 1px solid #93c5fd;
+        padding: 1rem;
+        margin-top: 1rem;
+        clear: both;
+      }
+      .semantic-example nav ul {
+        list-style: none;
+        padding: 0;
+      }
+      .semantic-example nav li {
+        display: inline;
+        margin-right: 10px;
+      }
+      .semantic-example address {
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 9: Semantic HTML</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_8_forms_part_2.html" class="toc-link">&larr; Day 8</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What is Semantic HTML?</h2>
+      <p>
+        Semantic HTML refers to using HTML elements that accurately describe the
+        meaning and structure of the content they contain, rather than just
+        defining its presentation.
+      </p>
+      <p>
+        For example, using <code>&lt;h1&gt;</code> for the main heading tells
+        browsers, search engines, and assistive technologies that this text is
+        the most important heading on the page. In contrast, using a generic
+        <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> and styling it to
+        look like a heading provides no semantic meaning. While it might look
+        the same visually, it lacks the underlying structural information.
+      </p>
+      <p>
+        Older HTML often relied heavily on non-semantic elements like
+        <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> for everything,
+        using <code>id</code> or <code>class</code> attributes (e.g.,
+        <code>&lt;div id="header"&gt;</code>) to hint at the structure. HTML5
+        introduced specific semantic elements to make this structure explicit.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Why Use Semantic HTML?</h2>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Accessibility:</strong> Assistive technologies (like screen
+          readers) rely on semantic elements to understand the page structure
+          and navigate content effectively. Elements like
+          <code>&lt;nav&gt;</code> allow users to easily jump to the navigation
+          menu.
+        </li>
+        <li>
+          <strong>SEO (Search Engine Optimization):</strong> Search engines use
+          semantic markup to better understand the context and importance of
+          different parts of your content, which can potentially improve search
+          rankings.
+        </li>
+        <li>
+          <strong>Maintainability & Readability:</strong> Semantic code is
+          easier for developers (including your future self) to read,
+          understand, and maintain. <code>&lt;header&gt;</code> clearly
+          indicates a header section, unlike a generic <code>&lt;div&gt;</code>.
+        </li>
+        <li>
+          <strong>Future Compatibility:</strong> Using standard semantic
+          elements helps ensure your site works better with future browser
+          features or web technologies that might leverage this structure.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Key HTML5 Semantic Elements for Page Structure
+      </h2>
+      <p>
+        HTML5 introduced several block-level elements designed to structure web
+        pages:
+      </p>
+      <ul class="list-disc list-inside space-y-3 mb-4">
+        <li>
+          <code><strong>&lt;header&gt;</strong></code
+          >: Represents introductory content for its nearest ancestor sectioning
+          content or sectioning root element. Typically contains headings
+          (<code>&lt;h1&gt;-&lt;h6&gt;</code>), logos, search forms, author
+          names, or navigation. Can be used multiple times on a page (e.g., for
+          the site header and an article header).
+        </li>
+        <li>
+          <code><strong>&lt;nav&gt;</strong></code
+          >: Represents a section of the page whose purpose is to provide
+          navigation links, either within the current document or to other
+          documents. Common examples include main site navigation menus, tables
+          of contents, or indexes. Not all groups of links need to be in a
+          <code>&lt;nav&gt;</code> (e.g., links in a footer are often just
+          within the <code>&lt;footer&gt;</code>).
+        </li>
+        <li>
+          <code><strong>&lt;main&gt;</strong></code
+          >: Represents the dominant content of the <code>&lt;body&gt;</code> of
+          a document. The content inside <code>&lt;main&gt;</code> should be
+          unique to the document, excluding content that is repeated across
+          documents such as sidebars, navigation links, copyright information,
+          site logos, and search forms. There should only be
+          <strong>one</strong> <code>&lt;main&gt;</code> element per document.
+        </li>
+        <li>
+          <code><strong>&lt;section&gt;</strong></code
+          >: Represents a standalone thematic grouping of content, typically
+          with a heading. Think of it like chapters in a book or distinct
+          sections on a landing page (e.g., "About Us", "Services", "Contact
+          Info"). Use it when there isn't a more specific semantic element
+          available.
+        </li>
+        <li>
+          <code><strong>&lt;article&gt;</strong></code
+          >: Represents a self-contained composition in a document, page,
+          application, or site, which is intended to be independently
+          distributable or reusable (e.g., in syndication). Examples include a
+          forum post, a magazine or newspaper article, a blog entry, a
+          user-submitted comment, or an interactive widget. An
+          <code>&lt;article&gt;</code> often has its own header and sometimes a
+          footer.
+        </li>
+        <li>
+          <code><strong>&lt;aside&gt;</strong></code
+          >: Represents a portion of a document whose content is only indirectly
+          related to the document's main content. Often used for sidebars, pull
+          quotes, glossaries, advertising, or groups of navigation links
+          separate from the main navigation.
+        </li>
+        <li>
+          <code><strong>&lt;footer&gt;</strong></code
+          >: Represents a footer for its nearest ancestor sectioning content or
+          sectioning root element. Typically contains information about the
+          author, copyright data, links to related documents, terms of use, or
+          contact information. Like <code>&lt;header&gt;</code>, it can be used
+          multiple times (e.g., site footer and article footer).
+        </li>
+        <li>
+          <code><strong>&lt;address&gt;</strong></code
+          >: Represents contact information for its nearest
+          <code>&lt;article&gt;</code> or <code>&lt;body&gt;</code> ancestor.
+          This can include physical addresses, URLs, email addresses, phone
+          numbers, social media handles, etc. It should not be used for
+          arbitrary addresses (like mailing addresses within main content unless
+          they are the contact info for the article/body).
+        </li>
+        <li>
+          <code><strong>&lt;figure&gt;</strong></code> and
+          <code><strong>&lt;figcaption&gt;</strong></code
+          >: <code>&lt;figure&gt;</code> represents self-contained content,
+          potentially with an optional caption
+          (<code>&lt;figcaption&gt;</code>), that is referenced from the main
+          flow of the document, but that can be moved to another part of the
+          document or to an appendix without affecting the main flow. Often used
+          for images, illustrations, diagrams, code snippets, or videos that
+          need a caption. <code>&lt;figcaption&gt;</code> provides the caption
+          for the <code>&lt;figure&gt;</code>.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        <code>&lt;div&gt;</code> vs. Semantic Elements
+      </h2>
+      <p>
+        The <code>&lt;div&gt;</code> element is still perfectly valid and
+        useful. It's a generic container with no semantic meaning. Use
+        <code>&lt;div&gt;</code> when there's no specific semantic element that
+        accurately describes the content's purpose, often purely for styling or
+        grouping elements for layout purposes with CSS (e.g., creating columns,
+        wrappers, or styling hooks).
+      </p>
+      <p>
+        <strong>Rule of thumb:</strong> If a semantic element exists that
+        accurately describes the content's purpose (header, nav, section,
+        article, etc.), use it. If not, use a <code>&lt;div&gt;</code>.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Basic Blog Post Structure</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Awesome Blog Post&lt;/title&gt;
+    &lt;!-- Link to styles for semantic elements --&gt;
+    &lt;style&gt;
+        body { font-family: sans-serif; line-height: 1.6; }
+        .blog-example header { background-color: #dbeafe; padding: 10px; }
+        .blog-example nav { background-color: #e0e7ff; padding: 5px; }
+        .blog-example main { margin-top: 15px; }
+        .blog-example article header h1 { font-size: 1.8em; color: #1e40af; }
+        .blog-example article footer { font-size: 0.9em; color: #6b7280; margin-top: 15px; border-top: 1px solid #ccc; padding-top: 5px;}
+        .blog-example footer { background-color: #dbeafe; padding: 10px; margin-top: 20px; text-align: center; font-size: 0.9em;}
+        .blog-example nav ul { list-style: none; padding: 0; } .blog-example nav li { display: inline; margin-right: 10px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class="blog-example"&gt;
+
+    &lt;header&gt; &lt;!-- Site Header --&gt;
+        &lt;h1&gt;My Awesome Blog&lt;/h1&gt;
+        &lt;nav&gt; &lt;!-- Main Site Navigation --&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt; &lt;!-- Main Content Area --&gt;
+        &lt;article&gt; &lt;!-- Individual Blog Post --&gt;
+            &lt;header&gt; &lt;!-- Article Header --&gt;
+                &lt;h1&gt;The Importance of Semantic HTML&lt;/h1&gt;
+                &lt;p&gt;Published on &lt;time datetime="2025-05-03"&gt;May 3, 2025&lt;/time&gt; by Author Name&lt;/p&gt;
+                &lt;!-- &lt;time&gt; is another semantic inline element --&gt;
+            &lt;/header&gt;
+
+            &lt;p&gt;Semantic HTML is crucial for modern web development...&lt;/p&gt;
+            &lt;p&gt;It improves accessibility, SEO, and code maintainability.&lt;/p&gt;
+
+            &lt;section&gt; &lt;!-- Section within the article --&gt;
+                &lt;h2&gt;Benefits for Accessibility&lt;/h2&gt;
+                &lt;p&gt;Screen readers can navigate pages more effectively...&lt;/p&gt;
+            &lt;/section&gt;
+
+             &lt;section&gt;
+                &lt;h2&gt;Benefits for SEO&lt;/h2&gt;
+                &lt;p&gt;Search engines better understand content structure...&lt;/p&gt;
+            &lt;/section&gt;
+
+            &lt;footer&gt; &lt;!-- Article Footer --&gt;
+                &lt;p&gt;Tags: &lt;a href="/tags/html"&gt;HTML&lt;/a&gt;, &lt;a href="/tags/webdev"&gt;Web Development&lt;/a&gt;&lt;/p&gt;
+            &lt;/footer&gt;
+        &lt;/article&gt;
+        &lt;!-- More articles could go here --&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt; &lt;!-- Site Footer --&gt;
+        &lt;p&gt;&copy; 2025 My Awesome Blog. All rights reserved.&lt;/p&gt;
+        &lt;address&gt;Contact us at: &lt;a href="mailto:info@awesomeblog.com"&gt;info@awesomeblog.com&lt;/a&gt;&lt;/address&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Page Layout with Header, Nav, Main, Aside, Footer</h3>
+      <div class="semantic-example">
+        <header>Site Header (Logo, Site Title)</header>
+        <nav>Main Navigation Menu</nav>
+        <aside>Sidebar (Related Links, Ads)</aside>
+        <main>
+          Main Page Content Area
+          <section>
+            <h2>Section 1 Title</h2>
+            <p>Content for section 1...</p>
+          </section>
+          <section>
+            <h2>Section 2 Title</h2>
+            <p>Content for section 2...</p>
+            <article>
+              <h3>Embedded Article/Widget</h3>
+              <p>Self-contained content within section 2.</p>
+            </article>
+          </section>
+        </main>
+        <footer>Site Footer (Copyright, Contact Info)</footer>
+      </div>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;&lt;title&gt;Layout Example&lt;/title&gt;
+ &lt;!-- Link to styles that might float aside, etc. --&gt;
+&lt;style&gt;
+    body { font-family: sans-serif; }
+    header, nav, main, aside, footer, section, article { border: 1px solid grey; padding: 10px; margin: 5px; }
+    header { background-color: lightblue; }
+    nav { background-color: lightcoral; }
+    main { background-color: lightyellow; }
+    aside { background-color: lightgrey; float: right; width: 25%; min-height: 200px;}
+    section { background-color: white; }
+    article { background-color: #eee; }
+    footer { background-color: lightblue; clear: both; }
+    main { width: 70%; float: left;} /* Adjust main width to accommodate aside */
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;Site Header (Logo, Site Title)&lt;/header&gt;
+    &lt;nav&gt;Main Navigation Menu&lt;/nav&gt;
+
+    &lt;aside&gt;Sidebar (Related Links, Ads)&lt;/aside&gt;
+
+    &lt;main&gt;
+        Main Page Content Area
+        &lt;section&gt;
+            &lt;h2&gt;Section 1 Title&lt;/h2&gt;
+            &lt;p&gt;Content for section 1...&lt;/p&gt;
+        &lt;/section&gt;
+         &lt;section&gt;
+            &lt;h2&gt;Section 2 Title&lt;/h2&gt;
+            &lt;p&gt;Content for section 2...&lt;/p&gt;
+             &lt;article&gt;
+                &lt;h3&gt;Embedded Article/Widget&lt;/h3&gt;
+                &lt;p&gt;Self-contained content within section 2.&lt;/p&gt;
+             &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;Site Footer (Copyright, Contact Info)&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>
+        Example 3: Using <code>&lt;figure&gt;</code> and
+        <code>&lt;figcaption&gt;</code>
+      </h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Figure Example&lt;/title&gt;
+    &lt;style&gt;
+        figure {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px;
+            display: inline-block; /* Or block, depending on layout needs */
+            text-align: center;
+        }
+        figcaption {
+            margin-top: 8px;
+            font-style: italic;
+            font-size: 0.9em;
+            color: #555;
+        }
+        figure img { max-width: 100%; height: auto; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Diagrams and Images&lt;/h1&gt;
+    &lt;p&gt;As shown in the diagram below, the process involves several steps.&lt;/p&gt;
+
+    &lt;figure&gt;
+        &lt;img src="https://via.placeholder.com/400x200.png?text=Process+Diagram" alt="Diagram showing the 5-step process."&gt;
+        &lt;figcaption&gt;Fig. 1: Overview of the 5-step workflow.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+
+    &lt;p&gt;The code example also illustrates this concept:&lt;/p&gt;
+
+    &lt;figure&gt;
+        &lt;pre&gt;&lt;code class="language-javascript"&gt;
+function greet(name) {
+  console.log(<code>Hello, ${name}!</code>);
+}
+greet('World');
+        &lt;/code&gt;&lt;/pre&gt;
+        &lt;figcaption&gt;Code Snippet 1: Basic JavaScript greeting function.&lt;/figcaption&gt;
+    &lt;/figure&gt;
+
+&lt;/body&gt;
+&lt;!-- Include Prism JS for code highlighting if needed --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;Prism.highlightAll();&lt;/script&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. What is the primary benefit of using semantic HTML elements like
+            <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>, or
+            <code>&lt;aside&gt;</code> instead of generic
+            <code>&lt;div&gt;</code> tags?
+          </p>
+          <div class="answer">
+            <p>
+              Semantic elements describe the <em>meaning</em> and structure of
+              the content, improving accessibility, SEO, and code readability,
+              whereas <code>&lt;div&gt;</code> is a generic container with no
+              inherent meaning.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. Which HTML5 element should contain the main, unique content of a
+            web page?
+          </p>
+          <div class="answer">
+            <p>The <code>&lt;main&gt;</code> element.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. What is the difference between a <code>&lt;section&gt;</code> and
+            an <code>&lt;article&gt;</code>?
+          </p>
+          <div class="answer">
+            <p>
+              An <code>&lt;article&gt;</code> represents a complete,
+              self-contained piece of content that could be distributed
+              independently (like a blog post or news story). A
+              <code>&lt;section&gt;</code> represents a thematic grouping of
+              content within a larger context, not necessarily self-contained
+              (like chapters or distinct parts of a page).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. Which element is used to provide navigation links (like a
+            website's main menu)?
+          </p>
+          <div class="answer">
+            <p>The <code>&lt;nav&gt;</code> element.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>5. When should you use a <code>&lt;div&gt;</code> element?</p>
+          <div class="answer">
+            <p>
+              Use a <code>&lt;div&gt;</code> when there is no more specific
+              semantic element available to describe the content's purpose,
+              often for grouping elements purely for styling or layout purposes
+              with CSS.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_8_forms_part_2.html" class="toc-link">&larr; Day 8</a>
+        <a href="day_10_html_entities.html" class="toc-link"
+          >Go to Day 10 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

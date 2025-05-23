@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 14: Iframes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Iframe Styling */
+      iframe {
+        border: 2px solid #6b7280; /* Border around iframe */
+        margin: 1rem 0;
+        display: block; /* Ensure it's a block element */
+        background-color: #e5e7eb; /* Placeholder background */
+      }
+      .responsive-iframe-container {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+        margin: 1rem 0;
+      }
+      .responsive-iframe-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0; /* Remove border for responsive container */
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 14: Iframes</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_13_svg_intro.html" class="toc-link">&larr; Day 13</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What is an Iframe?</h2>
+      <p>
+        An iframe (Inline Frame) is an HTML element,
+        <code><strong>&lt;iframe&gt;</strong></code
+        >, used to embed another HTML document within the current HTML document.
+        Essentially, it allows you to load a separate webpage inside a
+        rectangular region on your current page.
+      </p>
+      <p>
+        Think of it like cutting a window in your current webpage and looking
+        through that window at a completely different webpage. The content
+        inside the iframe exists in its own Browse context, independent of the
+        parent page (though limited interaction is possible via JavaScript under
+        certain security conditions).
+      </p>
+      <p>Common uses for iframes include:</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          Embedding third-party content like YouTube videos, Google Maps, social
+          media widgets (like buttons or feeds).
+        </li>
+        <li>Displaying advertisements from ad networks.</li>
+        <li>Integrating separate web applications or parts of applications.</li>
+        <li>
+          Older uses included complex page layouts, but this is now discouraged
+          in favor of CSS.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The <code>&lt;iframe&gt;</code> Element and Attributes
+      </h2>
+      <p>
+        The basic structure involves the <code>&lt;iframe&gt;</code> tag with
+        several important attributes:
+      </p>
+      <pre><code class="language-markup">
+&lt;iframe src="url" width="600" height="400" title="Description of content"&gt;
+  Fallback content for browsers that do not support iframes.
+&lt;/iframe&gt;
+        </code></pre>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <code><strong>src</strong></code
+          >: (Required) Specifies the URL of the HTML document to embed in the
+          iframe. This can be a page on the same server (relative URL) or on a
+          completely different website (absolute URL).
+        </li>
+        <li>
+          <code><strong>width</strong></code
+          >: Specifies the width of the iframe container in pixels or
+          percentage.
+        </li>
+        <li>
+          <code><strong>height</strong></code
+          >: Specifies the height of the iframe container in pixels or
+          percentage.
+        </li>
+        <li>
+          <code><strong>title</strong></code
+          >: (Strongly Recommended for Accessibility) Provides a descriptive
+          title for the iframe's content. Screen readers use this title to
+          inform users about the embedded content, allowing them to understand
+          its purpose and decide whether to interact with it.
+        </li>
+        <li>
+          <code><strong>name</strong></code
+          >: Assigns a name to the iframe, which can be used as a target for
+          links (using the <code>target</code> attribute in
+          <code>&lt;a&gt;</code> tags) or for JavaScript interactions.
+        </li>
+        <li>
+          <code><strong>frameborder</strong></code> (Deprecated, use CSS):
+          Historically used to specify whether to display a border around the
+          iframe (<code>1</code> for yes, <code>0</code> for no). Use the CSS
+          <code>border</code> property instead.
+        </li>
+        <li>
+          <code><strong>allowfullscreen</strong></code> (Boolean): Allows the
+          iframe content (like a video player) to enter fullscreen mode.
+        </li>
+        <li>
+          <code><strong>loading="lazy"</strong></code> (Modern Browsers): Tells
+          the browser to defer loading the iframe content until the user scrolls
+          near it. Improves initial page load performance.
+        </li>
+        <li>
+          <code><strong>sandbox</strong></code
+          >: Enables a set of extra restrictions on the content hosted by the
+          iframe for security purposes. Can restrict things like script
+          execution, form submission, popups, etc. Values specify exceptions
+          (e.g., <code>sandbox="allow-scripts allow-same-origin"</code>). Use
+          with care.
+        </li>
+        <li>
+          <code><strong>allow</strong></code
+          >: Specifies a feature policy for the iframe, controlling which
+          browser features (like camera, microphone, geolocation, fullscreen)
+          are available to the embedded content.
+        </li>
+      </ul>
+      <p>
+        The content between <code>&lt;iframe&gt;</code> and
+        <code>&lt;/iframe&gt;</code> serves as fallback content for very old
+        browsers or browsers with iframe support disabled.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Security Considerations</h2>
+      <p>
+        Iframes can pose security risks if not used carefully, primarily because
+        they allow embedding content from potentially untrusted third-party
+        sources.
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Clickjacking:</strong> Malicious sites might try to load your
+          site in an invisible iframe and trick users into clicking buttons or
+          links on your site without realizing it. Server-side headers like
+          <code>X-Frame-Options</code> or
+          <code>Content-Security-Policy: frame-ancestors</code> can prevent your
+          site from being embedded in iframes on other domains.
+        </li>
+        <li>
+          <strong>Cross-Site Scripting (XSS):</strong> While the iframe content
+          runs in its own context, poorly configured interactions between the
+          parent page and iframe (via JavaScript) could potentially lead to
+          vulnerabilities if the embedded content is malicious.
+        </li>
+        <li>
+          <strong>Sandboxing:</strong> The <code>sandbox</code> attribute is a
+          powerful tool to mitigate risks by restricting the capabilities of the
+          embedded content.
+        </li>
+      </ul>
+      <p>
+        Generally, only embed content from trusted sources. When embedding
+        third-party widgets (like YouTube), they usually provide the correct
+        iframe code with appropriate security attributes already set.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Responsive Iframes</h2>
+      <p>
+        Making iframes responsive (so they resize nicely on different screen
+        sizes while maintaining their aspect ratio) often requires a CSS trick,
+        especially for content like videos. Since the iframe's content might not
+        be inherently responsive, we often wrap the iframe in a container div
+        and use padding to enforce the aspect ratio.
+      </p>
+      <pre><code class="language-css">
+/* CSS for a 16:9 aspect ratio container */
+.responsive-iframe-container {
+  position: relative; /* Establishes positioning context */
+  overflow: hidden;
+  padding-top: 56.25%; /* Height / Width = 9 / 16 = 0.5625 = 56.25% */
+}
+
+.responsive-iframe-container iframe {
+  position: absolute; /* Position iframe absolutely within the container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0; /* Optional: remove default border */
+}
+        </code></pre>
+      <pre><code class="language-markup">
+&lt;!-- HTML --&gt;
+&lt;div class="responsive-iframe-container"&gt;
+  &lt;iframe
+    src="your-video-or-map-url"
+    title="Descriptive Title"
+    allowfullscreen&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+        </code></pre>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Embedding a YouTube Video</h3>
+      <p>
+        YouTube provides ready-made iframe code via its "Share" -> "Embed"
+        option.
+      </p>
+      <div class="responsive-iframe-container">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=n3k0l4k9n3l1k9n3"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Embedding YouTube&lt;/title&gt;
+    &lt;style&gt;
+       .responsive-iframe-container { position: relative; overflow: hidden; padding-top: 56.25%; /* 16:9 */ }
+       .responsive-iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Embedded YouTube Video&lt;/h1&gt;
+    &lt;div class="responsive-iframe-container"&gt;
+        &lt;!-- Example YouTube Embed Code (Replace with actual video ID) --&gt;
+        &lt;iframe
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=n3k0l4k9n3l1k9n3"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen&gt;
+        &lt;/iframe&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Embedding Google Maps</h3>
+      <p>
+        Google Maps also provides iframe code via its "Share" -> "Embed a map"
+        option.
+      </p>
+      <div class="responsive-iframe-container" style="padding-top: 75%">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322802!2d106.8195801147688!3d-6.194741995514041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument%20(Monas)!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Google Map of Monas"
+        ></iframe>
+      </div>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Embedding Google Maps&lt;/title&gt;
+    &lt;style&gt;
+        /* Adjust padding-top for map's typical aspect ratio if needed (e.g., 75% for 4:3) */
+       .responsive-iframe-container { position: relative; overflow: hidden; padding-top: 75%; /* 4:3 Aspect Ratio */ }
+       .responsive-iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Embedded Google Map&lt;/h1&gt;
+    &lt;div class="responsive-iframe-container"&gt;
+        &lt;!-- Example Google Maps Embed Code (Replace with actual map embed) --&gt;
+        &lt;iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322802!2d106.8195801147688!3d-6.194741995514041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument%20(Monas)!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Google Map showing Monas"&gt;
+        &lt;/iframe&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>
+        Example 3: Embedding a Page from the Same Site (with a fixed size)
+      </h3>
+      <p>Embedding another simple HTML page from the same origin.</p>
+      <iframe
+        src="day_1_introduction_to_html.html"
+        width="90%"
+        height="400"
+        title="Day 1 HTML Content"
+        style="border: 1px solid navy"
+      ></iframe>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Internal Iframe&lt;/title&gt;
+    &lt;style&gt;
+        iframe { border: 1px solid navy; margin: 20px 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Embedding Content from this Course&lt;/h1&gt;
+    &lt;p&gt;Below is the content from Day 1:&lt;/p&gt;
+
+    &lt;iframe src="day_1_introduction_to_html.html" width="90%" height="400" title="Day 1 HTML Course Content"&gt;
+        Fallback content if iframes are not supported or the page doesn't load.
+        You can view Day 1 content &lt;a href="day_1_introduction_to_html.html"&gt;here&lt;/a&gt;.
+    &lt;/iframe&gt;
+
+    &lt;p&gt;End of embedding section.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. What does the <code>&lt;iframe&gt;</code> element allow you to
+            do?
+          </p>
+          <div class="answer">
+            <p>
+              It allows you to embed another HTML document (a separate webpage)
+              within the current HTML document.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What is the purpose of the <code>src</code> attribute in an
+            <code>&lt;iframe&gt;</code> tag?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>src</code> attribute specifies the URL of the webpage or
+              document that should be loaded and displayed inside the iframe.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. Why is the <code>title</code> attribute important for iframe
+            accessibility?
+          </p>
+          <div class="answer">
+            <p>
+              Screen readers announce the <code>title</code> attribute to users,
+              helping them understand the content and purpose of the embedded
+              iframe without needing to navigate into it first.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. Can you directly style the content *inside* an iframe using CSS
+            from the *parent* page if the iframe loads content from a different
+            domain (e.g., YouTube)?
+          </p>
+          <div class="answer">
+            <p>
+              No, due to security restrictions (the Same-Origin Policy), you
+              cannot directly style the content inside a cross-origin iframe
+              using CSS from the parent page. You can only style the iframe
+              container itself (its border, width, height, etc.).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What CSS technique is commonly used to make embedded videos (like
+            from YouTube) responsive while maintaining their aspect ratio?
+          </p>
+          <div class="answer">
+            <p>
+              Wrapping the iframe in a container div, setting the container's
+              <code>position</code> to <code>relative</code> and
+              <code>overflow</code> to <code>hidden</code>, setting a percentage
+              <code>padding-top</code> on the container equal to the aspect
+              ratio (e.g., 56.25% for 16:9), and then positioning the iframe
+              absolutely within the container with <code>width: 100%</code> and
+              <code>height: 100%</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_13_svg_intro.html" class="toc-link">&larr; Day 13</a>
+        <a href="day_15_best_practices_validation.html" class="toc-link"
+          >Go to Day 15 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-css.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

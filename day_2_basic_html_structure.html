@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 2: Basic HTML Structure</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #007bff;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      .code-container {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        overflow-x: auto;
+      }
+      .test-container {
+        margin-top: 30px;
+        border-top: 2px solid #eee;
+        padding-top: 20px;
+      }
+      .question {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .answer {
+        margin-left: 20px;
+        margin-bottom: 10px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto p-8 bg-white rounded-md shadow-md">
+      <h1
+        class="text-3xl font-semibold text-blue-600 mb-6 border-b-2 border-gray-300 pb-2"
+      >
+        Day 2: Basic HTML Structure
+      </h1>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+        Anatomy of an HTML Element
+      </h2>
+      <p>
+        As we touched upon yesterday, an HTML element usually consists of a
+        start tag, content, and an end tag. Let's delve deeper into this:
+      </p>
+      <ul>
+        <li class="mb-2">
+          <span class="font-semibold">Start Tag:</span> It marks the beginning
+          of an element and is enclosed in angle brackets (e.g.,
+          <code>&lt;p&gt;</code>).
+        </li>
+        <li class="mb-2">
+          <span class="font-semibold">Content:</span> This is the information
+          that appears between the start and end tags (e.g., "This is a
+          paragraph.").
+        </li>
+        <li class="mb-2">
+          <span class="font-semibold">End Tag:</span> It marks the end of an
+          element. End tags look like start tags but have a forward slash before
+          the element name (e.g., <code>&lt;/p&gt;</code>).
+        </li>
+      </ul>
+      <p>
+        For example, in <code>&lt;h1&gt;My Main Title&lt;/h1&gt;</code>,
+        <code>&lt;h1&gt;</code> is the start tag, "My Main Title" is the
+        content, and <code>&lt;/h1&gt;</code> is the end tag.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+        Nesting HTML Elements
+      </h2>
+      <p>
+        HTML elements can be nested within each other. This means you can have
+        one element inside another. Proper nesting is crucial for the browser to
+        correctly interpret your HTML structure.
+      </p>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;div&gt;
+    &lt;p&gt;This paragraph is inside a &lt;strong&gt;div&lt;/strong&gt; element.&lt;/p&gt;
+&lt;/div&gt;
+            </code></pre>
+      </div>
+      <p>
+        In this example, the <code>&lt;p&gt;</code> element and the
+        <code>&lt;strong&gt;</code> element are nested within the
+        <code>&lt;div&gt;</code> element. It's important to close the inner
+        elements before closing the outer ones. Incorrect nesting can lead to
+        unexpected behavior and make your HTML harder to read and maintain.
+      </p>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;!-- Incorrect Nesting --&gt;
+&lt;p&gt;&lt;strong&gt;This is bold text.&lt;/p&gt;&lt;/strong&gt;
+
+&lt;!-- Correct Nesting --&gt;
+&lt;p&gt;&lt;strong&gt;This is bold text.&lt;/strong&gt;&lt;/p&gt;
+            </code></pre>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+        Block-Level vs. Inline Elements
+      </h2>
+      <p>
+        HTML elements can be categorized into two main types based on how they
+        behave in terms of layout: block-level and inline elements.
+      </p>
+      <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
+        Block-Level Elements
+      </h3>
+      <ul>
+        <li class="mb-2">
+          Block-level elements always start on a new line and take up the full
+          width available (stretching out to the left and right as far as they
+          can).
+        </li>
+        <li class="mb-2">
+          They can contain both inline and other block-level elements.
+        </li>
+        <li class="mb-2">
+          Examples of common block-level elements include:
+          <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>,
+          <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>,
+          <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>,
+          <code>&lt;li&gt;</code>, <code>&lt;form&gt;</code>,
+          <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>,
+          <code>&lt;section&gt;</code>.
+        </li>
+      </ul>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;div style="border: 1px solid red;"&gt;This is a block-level div.&lt;/div&gt;
+&lt;p style="border: 1px solid green;"&gt;This is a block-level paragraph.&lt;/p&gt;
+            </code></pre>
+      </div>
+
+      <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
+        Inline Elements
+      </h3>
+      <ul>
+        <li class="mb-2">
+          Inline elements do not start on a new line and only take up as much
+          width as necessary.
+        </li>
+        <li class="mb-2">
+          They typically contain only data or other inline elements.
+        </li>
+        <li class="mb-2">
+          Examples of common inline elements include: <code>&lt;span&gt;</code>,
+          <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>,
+          <code>&lt;em&gt;</code>, <code>&lt;img&gt;</code>,
+          <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>,
+          <code>&lt;select&gt;</code>.
+        </li>
+      </ul>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;span style="border: 1px solid blue;"&gt;This is an inline span.&lt;/span&gt;
+&lt;strong style="border: 1px solid orange;"&gt;This is inline bold text.&lt;/strong&gt;
+            </code></pre>
+      </div>
+      <p>
+        Understanding the difference between block-level and inline elements is
+        crucial for controlling the layout and structure of your web pages.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">Attributes</h2>
+      <p>
+        Attributes provide extra information about HTML elements. They are
+        always specified in the start tag. Attributes usually come in name/value
+        pairs like: <code>name="value"</code>.
+      </p>
+      <ul>
+        <li class="mb-2">
+          <span class="font-semibold">Common Attributes:</span> Some common
+          attributes include <code>id</code> (to uniquely identify an element),
+          <code>class</code> (to classify elements), <code>style</code> (to add
+          inline styles), <code>src</code> (for images), <code>href</code> (for
+          links), and <code>alt</code> (for image descriptions).
+        </li>
+        <li class="mb-2">
+          <span class="font-semibold">Global Attributes:</span> These are
+          attributes that can be used on almost any HTML element (e.g.,
+          <code>id</code>, <code>class</code>, <code>style</code>,
+          <code>title</code>, <code>lang</code>).
+        </li>
+      </ul>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;p id="intro" class="main-paragraph" style="color: green;"&gt;This paragraph has an ID, a class, and inline styling.&lt;/p&gt;
+&lt;img src="image.jpg" alt="My Image" width="200"&gt;
+&lt;a href="https://www.example.com" title="Go to Example.com"&gt;Visit Example&lt;/a&gt;
+            </code></pre>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+        Comments in HTML
+      </h2>
+      <p>
+        HTML comments are used to insert explanatory notes in the code. They are
+        ignored by the browser and are not displayed on the page. Comments are
+        very useful for documenting your code and making it easier to
+        understand.
+      </p>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;!-- This is an HTML comment --&gt;
+&lt;p&gt;This paragraph is not a comment.&lt;/p&gt;
+&lt;!--
+    This is a
+    multi-line
+    HTML comment.
+--&gt;
+            </code></pre>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">Examples</h2>
+      <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
+        Example 1: A Nested Structure
+      </h3>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;article&gt;
+    &lt;h2&gt;Article Title&lt;/h2&gt;
+    &lt;p&gt;This is the main content of the article. &lt;em&gt;It includes emphasized text.&lt;/em&gt;&lt;/p&gt;
+&lt;/article&gt;
+            </code></pre>
+      </div>
+
+      <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
+        Example 2: Block and Inline Elements
+      </h3>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;div style="background-color: #eee; padding: 10px;"&gt;
+    This is a &lt;span style="color: blue;"&gt;block-level&lt;/span&gt; element containing an
+    &lt;strong&gt;inline&lt;/strong&gt; element.
+&lt;/div&gt;
+            </code></pre>
+      </div>
+
+      <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
+        Example 3: Using Attributes
+      </h3>
+      <div class="code-container">
+        <pre><code class="language-html line-numbers">
+&lt;a href="https://www.w3schools.com" target="_blank"&gt;Visit W3Schools&lt;/a&gt;
+&lt;!--
+    - href: specifies the URL of the link.
+    - target="_blank": opens the link in a new tab.
+--&gt;
+            </code></pre>
+      </div>
+
+      <div class="test-container">
+        <h2
+          class="text-2xl font-semibold text-blue-600 mt-8 mb-4 border-t-2 border-gray-300 pt-2"
+        >
+          Test Your Knowledge
+        </h2>
+        <div class="question">
+          1. Explain the three main parts of an HTML element.
+        </div>
+        <div class="answer">
+          The three main parts are the start tag (marks the beginning), the
+          content (the actual information), and the end tag (marks the end).
+        </div>
+
+        <div class="question">
+          2. What is the importance of properly nesting HTML elements? Provide
+          an example of incorrect nesting.
+        </div>
+        <div class="answer">
+          Proper nesting ensures that the browser can correctly interpret the
+          structure of the HTML document. Incorrect nesting can lead to
+          unexpected behavior and make the code harder to maintain. Example of
+          incorrect nesting:
+          <code>&lt;p&gt;&lt;strong&gt;Text.&lt;/p&gt;&lt;/strong&gt;</code>
+        </div>
+
+        <div class="question">
+          3. What is the key difference between block-level and inline elements?
+          Give one example of each.
+        </div>
+        <div class="answer">
+          Block-level elements start on a new line and take up the full width,
+          while inline elements do not start on a new line and only take up
+          necessary width. Example of block-level: <code>&lt;div&gt;</code>,
+          Example of inline: <code>&lt;span&gt;</code>.
+        </div>
+
+        <div class="question">
+          4. What are attributes in HTML? Provide an example of an HTML element
+          with an attribute.
+        </div>
+        <div class="answer">
+          Attributes provide additional information about HTML elements. They
+          are specified in the start tag as name/value pairs. Example:
+          <code>&lt;img src="image.jpg" alt="My Image"&gt;</code> (<code
+            >src</code
+          >
+          and <code>alt</code> are attributes).
+        </div>
+
+        <div class="question">
+          5. How do you write a comment in HTML, and why are comments useful?
+        </div>
+        <div class="answer">
+          You write a comment in HTML using <code>&lt;!--</code> at the
+          beginning and <code>--&gt;</code> at the end. Comments are useful for
+          adding explanatory notes to your code, making it easier to understand
+          and maintain.
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  </body>
+</html>

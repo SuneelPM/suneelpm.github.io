@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 8: Forms - Part 2</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Basic Form Styling (continued) */
+      form div {
+        margin-bottom: 1rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
+        color: #374151;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="url"],
+      input[type="number"],
+      input[type="date"],
+      textarea,
+      select,
+      button,
+      input[type="submit"] {
+        padding: 0.5rem 0.8rem;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        font-size: 1rem;
+        width: calc(100% - 1.8rem); /* Adjust width for padding and border */
+        box-sizing: border-box; /* Include padding and border in element's total width */
+        max-width: 400px; /* Optional: Set a max-width */
+      }
+      textarea {
+        min-height: 80px;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #2563eb;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+      }
+      button,
+      input[type="submit"] {
+        background-color: #2563eb;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        width: auto; /* Override width */
+        margin-top: 0.5rem;
+      }
+      button:hover,
+      input[type="submit"]:hover {
+        background-color: #1d4ed8;
+      }
+      fieldset {
+        border: 1px solid #d1d5db;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        max-width: 400px;
+      }
+      legend {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #374151;
+        padding: 0 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 8: HTML Forms - Part 2</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_7_forms_part_1.html" class="toc-link">&larr; Day 7</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">More Form Elements</h2>
+      <p>
+        Let's explore more essential elements used to build versatile and
+        user-friendly forms.
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;textarea&gt;</code> Element
+      </h3>
+      <p>
+        Used for multi-line text input, suitable for longer messages, comments,
+        or descriptions. Unlike <code>&lt;input&gt;</code>, it's not an empty
+        element; any text between <code>&lt;textarea&gt;</code> and
+        <code>&lt;/textarea&gt;</code> becomes its default content.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>name</strong></code
+          >: Specifies the name sent to the server.
+        </li>
+        <li>
+          <code><strong>id</strong></code
+          >: For associating labels.
+        </li>
+        <li>
+          <code><strong>rows</strong></code
+          >: Suggests the visible number of text lines (height).
+        </li>
+        <li>
+          <code><strong>cols</strong></code
+          >: Suggests the visible width in average character widths. (Note: CSS
+          is generally preferred for controlling exact dimensions).
+        </li>
+        <li>
+          <code><strong>required</strong></code
+          >: Makes input mandatory.
+        </li>
+        <li>
+          <code><strong>placeholder</strong></code
+          >: Provides a hint.
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;label for="comment_box"&gt;Your Comment:&lt;/label&gt;
+&lt;textarea id="comment_box" name="comment" rows="5" cols="40" placeholder="Enter your feedback here..." required&gt;&lt;/textarea&gt;
+        </code></pre>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;select&gt;</code> Element (Dropdown Lists)
+      </h3>
+      <p>
+        Creates a dropdown list allowing users to choose one or more options
+        from a predefined list.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>&lt;select&gt;</strong></code
+          >: The container element. Requires <code>name</code> and
+          <code>id</code> attributes.
+          <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+            <li>
+              <code>multiple</code>: Boolean attribute allowing selection of
+              multiple options (usually requires holding Ctrl/Cmd while
+              clicking).
+            </li>
+            <li>
+              <code>size</code>: Specifies the number of visible options in the
+              list (creates a scroll box instead of a dropdown if > 1).
+            </li>
+          </ul>
+        </li>
+        <li>
+          <code><strong>&lt;option&gt;</strong></code
+          >: Defines an individual item within the dropdown list.
+          <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+            <li>
+              <code>value</code>: The value sent to the server if this option is
+              selected. <strong>Crucial attribute.</strong> If omitted, the text
+              content of the option is sent.
+            </li>
+            <li>
+              <code>selected</code>: Boolean attribute to pre-select this option
+              by default.
+            </li>
+            <li>
+              The text content between <code>&lt;option&gt;</code> and
+              <code>&lt;/option&gt;</code> is what the user sees in the list.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <code><strong>&lt;optgroup&gt;</strong></code
+          >: Used to group related options within a dropdown list. Requires a
+          <code>label</code> attribute which provides the heading for the group
+          (this heading is not selectable).
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;label for="country_select"&gt;Choose your country:&lt;/label&gt;
+&lt;select id="country_select" name="country"&gt;
+  &lt;option value=""&gt;--Please choose an option--&lt;/option&gt; &lt;!-- Placeholder option --&gt;
+  &lt;optgroup label="North America"&gt;
+    &lt;option value="US"&gt;United States&lt;/option&gt;
+    &lt;option value="CA"&gt;Canada&lt;/option&gt;
+    &lt;option value="MX"&gt;Mexico&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="Europe"&gt;
+    &lt;option value="GB" selected&gt;United Kingdom&lt;/option&gt; &lt;!-- Pre-selected --&gt;
+    &lt;option value="DE"&gt;Germany&lt;/option&gt;
+    &lt;option value="FR"&gt;France&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+        </code></pre>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;button&gt;</code> Element
+      </h3>
+      <p>
+        Offers more flexibility than <code>&lt;input type="button"&gt;</code>,
+        <code>&lt;input type="submit"&gt;</code>, or
+        <code>&lt;input type="reset"&gt;</code> because you can include HTML
+        content (like images or text formatting) inside it.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>type</strong></code
+          >: Specifies the button's behavior:
+          <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+            <li>
+              <code><strong>submit</strong></code> (Default): Submits the form
+              data. Acts like <code>&lt;input type="submit"&gt;</code>.
+            </li>
+            <li>
+              <code><strong>reset</strong></code
+              >: Resets the form controls. Acts like
+              <code>&lt;input type="reset"&gt;</code>.
+            </li>
+            <li>
+              <code><strong>button</strong></code
+              >: A clickable button with no default behavior. Typically used
+              with JavaScript to trigger custom actions.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <code><strong>name</strong></code> /
+          <code><strong>value</strong></code
+          >: Can be included. If a submit button has a <code>name</code> and
+          <code>value</code>, these are sent with the form data, which can be
+          useful if you have multiple submit buttons and need to know which one
+          was clicked.
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;button type="submit" name="action" value="save"&gt;
+  &lt;!-- You can add icons/images here --&gt;
+  &lt;img src="save-icon.png" alt="" width="16" height="16"&gt; &lt;strong&gt;Save&lt;/strong&gt; Draft
+&lt;/button&gt;
+
+&lt;button type="reset"&gt;Clear All&lt;/button&gt;
+
+&lt;button type="button" onclick="alert('Hello!');"&gt;Click Me (JS)&lt;/button&gt;
+        </code></pre>
+      <p>
+        (Note: The <code>onclick</code> attribute is a simple way to add
+        JavaScript, but more complex interactions are better handled in separate
+        script files).
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;fieldset&gt;</code> and
+        <code>&lt;legend&gt;</code> Elements
+      </h3>
+      <p>
+        Used to group related controls within a form, visually and semantically.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>&lt;fieldset&gt;</strong></code
+          >: Draws a box (border) around the grouped elements. Helps organize
+          complex forms.
+        </li>
+        <li>
+          <code><strong>&lt;legend&gt;</strong></code
+          >: Provides a caption or title for the <code>&lt;fieldset&gt;</code>.
+          It should be the first child of the <code>&lt;fieldset&gt;</code>.
+          Improves accessibility by clearly labeling the group.
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;fieldset&gt;
+  &lt;legend&gt;Contact Information&lt;/legend&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
+
+  &lt;label for="phone"&gt;Phone:&lt;/label&gt;
+  &lt;input type="tel" id="phone" name="phone"&gt; &lt;!-- type="tel" is another input type --&gt;
+
+&lt;/fieldset&gt;
+        </code></pre>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Other Useful Input Types (HTML5)
+      </h2>
+      <p>
+        HTML5 introduced several new input types that provide better user
+        experiences and built-in browser validation:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <code><strong>type="number"</strong></code
+          >: For numerical input. Browsers often display spinner controls
+          (up/down arrows). Attributes like <code>min</code>, <code>max</code>,
+          and <code>step</code> can be used for constraints.
+        </li>
+        <li>
+          <code><strong>type="date"</strong></code
+          >, <code><strong>type="month"</strong></code
+          >, <code><strong>type="week"</strong></code
+          >, <code><strong>type="time"</strong></code
+          >, <code><strong>type="datetime-local"</strong></code
+          >: Provide specialized controls for picking dates and times, often
+          showing a calendar or time picker interface. Browser support and
+          appearance vary.
+        </li>
+        <li>
+          <code><strong>type="range"</strong></code
+          >: Displays as a slider control for selecting a value within a defined
+          range (using <code>min</code>, <code>max</code>,
+          <code>step</code> attributes).
+        </li>
+        <li>
+          <code><strong>type="color"</strong></code
+          >: Provides a color picker interface.
+        </li>
+        <li>
+          <code><strong>type="url"</strong></code
+          >: For web addresses. Provides validation for URL format.
+        </li>
+        <li>
+          <code><strong>type="tel"</strong></code
+          >: For telephone numbers. Doesn't enforce a strict format (as formats
+          vary widely) but can trigger numeric keypads on mobile devices.
+        </li>
+        <li>
+          <code><strong>type="search"</strong></code
+          >: Functionally similar to <code>text</code>, but browsers might style
+          it differently (e.g., adding a clear 'x' icon) and it indicates
+          semantic purpose.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Registration Form with Fieldset, Select, Textarea</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Registration Form&lt;/title&gt;
+     &lt;style&gt;
+        /* Basic Form Styling Copied Here for Demo */
+        body { padding: 20px; max-width: 600px; margin: auto; font-family: sans-serif; color: #1f2937;}
+        form div, fieldset div { margin-bottom: 1rem; } label { display: block; margin-bottom: 0.3rem; font-weight: bold; color: #374151; }
+        input[type="text"], input[type="email"], input[type="password"], textarea, select, button { padding: 0.5rem 0.8rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 1rem; width: calc(100% - 1.8rem); box-sizing: border-box; max-width: 400px;}
+        textarea { min-height: 80px; } button { background-color: #2563eb; color: white; cursor: pointer; transition: background-color 0.2s; width: auto; margin-top: 0.5rem; } button:hover { background-color: #1d4ed8; }
+        fieldset { border: 1px solid #d1d5db; padding: 1rem; border-radius: 4px; margin-bottom: 1rem; max-width: 450px;} legend { font-weight: bold; margin-bottom: 0.5rem; color: #374151; padding: 0 0.5rem;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Create Account&lt;/h1&gt;
+    &lt;form action="/register" method="post"&gt;
+        &lt;fieldset&gt;
+            &lt;legend&gt;Login Credentials&lt;/legend&gt;
+            &lt;div&gt;
+                &lt;label for="reg_email"&gt;Email:&lt;/label&gt;
+                &lt;input type="email" id="reg_email" name="email" required&gt;
+            &lt;/div&gt;
+             &lt;div&gt;
+                &lt;label for="reg_pass"&gt;Password:&lt;/label&gt;
+                &lt;input type="password" id="reg_pass" name="password" required minlength="8"&gt; &lt;!-- Added minlength --&gt;
+            &lt;/div&gt;
+        &lt;/fieldset&gt;
+
+        &lt;fieldset&gt;
+             &lt;legend&gt;Personal Information&lt;/legend&gt;
+            &lt;div&gt;
+                &lt;label for="reg_country"&gt;Country:&lt;/label&gt;
+                &lt;select id="reg_country" name="country" required&gt;
+                    &lt;option value=""&gt;Select...&lt;/option&gt;
+                    &lt;option value="IN"&gt;India&lt;/option&gt;
+                    &lt;option value="US"&gt;United States&lt;/option&gt;
+                    &lt;option value="GB"&gt;United Kingdom&lt;/option&gt;
+                    &lt;option value="OTHER"&gt;Other&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+             &lt;div&gt;
+                &lt;label for="reg_bio"&gt;Short Bio:&lt;/label&gt;
+                &lt;textarea id="reg_bio" name="bio" rows="4" placeholder="Tell us a bit about yourself..."&gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+        &lt;/fieldset&gt;
+
+         &lt;div&gt;
+             &lt;!-- Using button element for submit --&gt;
+             &lt;button type="submit"&gt;Register Account&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Using HTML5 Input Types (Number, Date, Range)</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;HTML5 Inputs&lt;/title&gt;
+     &lt;style&gt;
+        /* Basic Form Styling Copied Here for Demo */
+         body { padding: 20px; max-width: 600px; margin: auto; font-family: sans-serif; color: #1f2937;}
+        form div { margin-bottom: 1rem; } label { display: block; margin-bottom: 0.3rem; font-weight: bold; color: #374151; }
+        input[type="number"], input[type="date"], input[type="range"], input[type="submit"] { padding: 0.5rem 0.8rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 1rem; width: calc(100% - 1.8rem); box-sizing: border-box; max-width: 300px;}
+        input[type="range"] { padding: 0; height: auto; } /* Adjust range input padding */
+        input[type="submit"] { background-color: #2563eb; color: white; cursor: pointer; transition: background-color 0.2s; width: auto; margin-top: 0.5rem; } input[type="submit"]:hover { background-color: #1d4ed8; }
+        output { display: inline-block; margin-left: 10px; font-weight: bold; color: #1d4ed8;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Booking Details&lt;/h1&gt;
+    &lt;form action="/booking" method="post"&gt;
+        &lt;div&gt;
+            &lt;label for="num_guests"&gt;Number of Guests:&lt;/label&gt;
+            &lt;input type="number" id="num_guests" name="guests" min="1" max="10" value="2" required&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;label for="checkin_date"&gt;Check-in Date:&lt;/label&gt;
+            &lt;input type="date" id="checkin_date" name="checkin" required&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;label for="satisfaction"&gt;Satisfaction (1-10):&lt;/label&gt;
+            &lt;input type="range" id="satisfaction" name="rating" min="1" max="10" step="1" value="5"
+                   oninput="this.nextElementSibling.value = this.value"&gt; &lt;!-- Simple JS to display value --&gt;
+            &lt;output&gt;5&lt;/output&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;input type="submit" value="Submit Booking"&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Multi-Select and Button Types</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Multi-Select & Buttons&lt;/title&gt;
+    &lt;style&gt;
+        /* Basic Form Styling Copied Here for Demo */
+        body { padding: 20px; max-width: 600px; margin: auto; font-family: sans-serif; color: #1f2937;}
+        form div { margin-bottom: 1rem; } label { display: block; margin-bottom: 0.3rem; font-weight: bold; color: #374151; }
+        select[multiple], button { padding: 0.5rem 0.8rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 1rem; width: calc(100% - 1.8rem); box-sizing: border-box; max-width: 300px;}
+        select[multiple] { height: 100px; } /* Give multi-select height */
+        button { background-color: #2563eb; color: white; cursor: pointer; transition: background-color 0.2s; width: auto; margin-top: 0.5rem; margin-right: 0.5rem;} button:hover { background-color: #1d4ed8; }
+        button[type="reset"] { background-color: #6b7280;} button[type="reset"]:hover { background-color: #4b5563;}
+        button[type="button"] { background-color: #10b981;} button[type="button"]:hover { background-color: #059669;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Preferences&lt;/h1&gt;
+    &lt;form action="/prefs" method="post"&gt;
+        &lt;div&gt;
+            &lt;label for="topics"&gt;Select interesting topics (Ctrl/Cmd + Click):&lt;/label&gt;
+            &lt;select id="topics" name="interested_topics" multiple size="5"&gt;
+                &lt;option value="tech"&gt;Technology&lt;/option&gt;
+                &lt;option value="science"&gt;Science&lt;/option&gt;
+                &lt;option value="art"&gt;Art &amp; Design&lt;/option&gt;
+                &lt;option value="sports"&gt;Sports&lt;/option&gt;
+                &lt;option value="music"&gt;Music&lt;/option&gt;
+                &lt;option value="travel"&gt;Travel&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+            &lt;button type="submit" name="save_action" value="final"&gt;Save Preferences&lt;/button&gt;
+            &lt;button type="reset"&gt;Reset Choices&lt;/button&gt;
+            &lt;button type="button" onclick="alert('Checking for updates... (not really!)')"&gt;Check Updates&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. Which HTML element is used for creating a multi-line text input
+            field?
+          </p>
+          <div class="answer">
+            <p>The <code>&lt;textarea&gt;</code> element.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What is the purpose of the <code>value</code> attribute within an
+            <code>&lt;option&gt;</code> tag inside a
+            <code>&lt;select&gt;</code> list?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>value</code> attribute specifies the data that will be
+              sent to the server if that option is selected. The text content of
+              the <code>&lt;option&gt;</code> tag is what the user sees.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. How can you group related options within a
+            <code>&lt;select&gt;</code> dropdown list?
+          </p>
+          <div class="answer">
+            <p>
+              Using the <code>&lt;optgroup&gt;</code> element with a
+              <code>label</code> attribute to provide a heading for the group.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. What are the three possible values for the
+            <code>type</code> attribute of a
+            <code>&lt;button&gt;</code> element, and what does each do?
+          </p>
+          <div class="answer">
+            <p>
+              <code>submit</code>: Submits the form (default behavior).<br />
+              <code>reset</code>: Resets the form controls to their initial
+              values.<br />
+              <code>button</code>: Creates a clickable button with no default
+              action, typically used with JavaScript.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What is the purpose of the <code>&lt;fieldset&gt;</code> and
+            <code>&lt;legend&gt;</code> elements?
+          </p>
+          <div class="answer">
+            <p>
+              <code>&lt;fieldset&gt;</code> groups related form controls
+              visually (often with a border), and
+              <code>&lt;legend&gt;</code> provides a title or caption for that
+              group, improving organization and accessibility.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_7_forms_part_1.html" class="toc-link">&larr; Day 7</a>
+        <a href="day_9_semantic_html.html" class="toc-link"
+          >Go to Day 9 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 13: SVG Element (Introduction)</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* SVG Styling */
+      svg {
+        border: 1px dashed #9ca3af; /* Dashed border for SVG area */
+        margin: 1rem auto; /* Center SVG */
+        display: block;
+        max-width: 100%; /* Make SVG responsive */
+        height: auto;
+      }
+      /* Example styles for SVG shapes */
+      .svg-rect {
+        fill: lightcoral;
+        stroke: darkred;
+        stroke-width: 2;
+      }
+      .svg-circle {
+        fill: lightblue;
+        stroke: navy;
+        stroke-width: 3;
+      }
+      .svg-line {
+        stroke: green;
+        stroke-width: 4;
+      }
+      .svg-text {
+        font-family: sans-serif;
+        font-size: 20px;
+        fill: purple;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">
+        Day 13: SVG Element (Introduction)
+      </h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_12_canvas_intro.html" class="toc-link">&larr; Day 12</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What is SVG?</h2>
+      <p>
+        SVG stands for <strong>Scalable Vector Graphics</strong>. It's an
+        XML-based markup language for describing two-dimensional vector
+        graphics. Unlike raster graphics (like JPEG, PNG, GIF, or Canvas
+        drawings) which are based on pixels, vector graphics are defined by
+        mathematical descriptions of shapes, lines, and curves.
+      </p>
+      <p>Key characteristics of SVG:</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Scalable:</strong> Because they are defined mathematically,
+          SVG images can be scaled up or down to any size without losing quality
+          or becoming pixelated. This makes them ideal for responsive design and
+          high-resolution displays.
+        </li>
+        <li>
+          <strong>XML-Based:</strong> SVG code is written in XML format, meaning
+          it's text-based. You can write SVG directly in your HTML document
+          using the <code>&lt;svg&gt;</code> element, or save it in a
+          <code>.svg</code> file and embed it like an image (<code
+            >&lt;img src="logo.svg"&gt;</code
+          >) or using other methods.
+        </li>
+        <li>
+          <strong>DOM Integration:</strong> When SVG is embedded directly in
+          HTML, each element within the SVG (like a shape or path) becomes part
+          of the Document Object Model (DOM). This means you can interact with
+          individual SVG elements using CSS and JavaScript (e.g., change colors
+          on hover, animate shapes).
+        </li>
+        <li>
+          <strong>Accessible:</strong> SVG includes features for accessibility,
+          such as <code>&lt;title&gt;</code> and
+          <code>&lt;desc&gt;</code> elements to provide text alternatives for
+          graphics.
+        </li>
+        <li>
+          <strong>Good for:</strong> Logos, icons, illustrations, diagrams,
+          charts, and interactive maps where scalability and crispness at any
+          size are important.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Embedding SVG in HTML</h2>
+      <p>
+        You can include SVG graphics in your HTML in several ways, but the most
+        direct method for learning and interaction is embedding it inline using
+        the <code>&lt;svg&gt;</code> element.
+      </p>
+      <pre><code class="language-markup">
+&lt;svg width="200" height="100" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;!-- SVG shapes and elements go here --&gt;
+  &lt;rect x="10" y="10" width="180" height="80" fill="blue" /&gt;
+&lt;/svg&gt;
+        </code></pre>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>&lt;svg&gt;</strong></code
+          >: The container element for the SVG graphic.
+        </li>
+        <li>
+          <code><strong>width</strong></code> and
+          <code><strong>height</strong></code
+          >: Define the dimensions of the SVG viewport (the visible area). These
+          can be unitless (pixels) or use units like <code>%</code>,
+          <code>em</code>.
+        </li>
+        <li>
+          <code><strong>xmlns</strong></code
+          >: Specifies the XML namespace for SVG. While technically required for
+          standalone SVG files, browsers are often lenient when SVG is embedded
+          directly in HTML5. However, it's good practice to include it.
+        </li>
+        <li>
+          <code><strong>viewBox</strong></code> (Optional but Recommended):
+          Defines the internal coordinate system and aspect ratio. Format is
+          <code>"min-x min-y width height"</code>. Using
+          <code>viewBox</code> allows the SVG to scale nicely within the
+          dimensions set by <code>width</code> and <code>height</code>.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Basic SVG Shapes</h2>
+      <p>SVG provides predefined elements for common shapes:</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <code><strong>&lt;rect&gt;</strong></code
+          >: Draws a rectangle. Attributes: <code>x</code>,
+          <code>y</code> (top-left corner coordinates), <code>width</code>,
+          <code>height</code>, <code>rx</code>, <code>ry</code> (corner
+          rounding).
+        </li>
+        <li>
+          <code><strong>&lt;circle&gt;</strong></code
+          >: Draws a circle. Attributes: <code>cx</code>,
+          <code>cy</code> (center coordinates), <code>r</code> (radius).
+        </li>
+        <li>
+          <code><strong>&lt;ellipse&gt;</strong></code
+          >: Draws an ellipse. Attributes: <code>cx</code>,
+          <code>cy</code> (center coordinates), <code>rx</code> (horizontal
+          radius), <code>ry</code> (vertical radius).
+        </li>
+        <li>
+          <code><strong>&lt;line&gt;</strong></code
+          >: Draws a straight line. Attributes: <code>x1</code>,
+          <code>y1</code> (start coordinates), <code>x2</code>,
+          <code>y2</code> (end coordinates).
+        </li>
+        <li>
+          <code><strong>&lt;polyline&gt;</strong></code
+          >: Draws a series of connected straight lines (open shape). Attribute:
+          <code>points</code> (a list of x,y coordinate pairs, e.g.,
+          <code>"x1,y1 x2,y2 x3,y3"</code>).
+        </li>
+        <li>
+          <code><strong>&lt;polygon&gt;</strong></code
+          >: Draws a closed shape consisting of connected straight lines.
+          Attribute: <code>points</code> (same format as polyline, but the
+          browser automatically connects the last point back to the first).
+        </li>
+        <li>
+          <code><strong>&lt;path&gt;</strong></code
+          >: The most powerful shape element, used to draw complex shapes
+          involving curves (straight lines, arcs, Bezier curves). Uses a complex
+          <code>d</code> (data) attribute to define the path commands. (We won't
+          delve deep into paths today).
+        </li>
+        <li>
+          <code><strong>&lt;text&gt;</strong></code
+          >: Renders text. Attributes: <code>x</code>, <code>y</code> (position
+          of the text baseline), font-related attributes. The text content goes
+          between the opening and closing tags.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Styling SVG Elements</h2>
+      <p>
+        SVG elements can be styled using presentation attributes directly on the
+        element or using CSS.
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Presentation Attributes:</strong> Attributes like
+          <code>fill</code> (fill color), <code>stroke</code> (outline color),
+          <code>stroke-width</code> (outline thickness), <code>opacity</code>,
+          <code>font-family</code>, <code>font-size</code>, etc., can be added
+          directly to SVG elements.
+          <pre><code class="language-markup">&lt;circle cx="50" cy="50" r="40" fill="red" stroke="black" stroke-width="3" /&gt;</code></pre>
+        </li>
+        <li>
+          <strong>CSS Styling:</strong> You can target SVG elements using
+          standard CSS selectors (element type, class, ID) and apply styles
+          using CSS properties (which often mirror the presentation attributes,
+          e.g., <code>fill</code>, <code>stroke</code>,
+          <code>stroke-width</code>). CSS is generally preferred for more
+          complex styling and maintainability, especially when embedding SVG
+          inline in HTML.
+          <pre><code class="language-css">
+/* CSS */
+svg .my-circle {
+  fill: blue;
+  stroke: darkblue;
+  stroke-width: 5;
+  opacity: 0.8;
+}
+                </code></pre>
+          <pre><code class="language-markup">
+&lt;!-- HTML --&gt;
+&lt;svg width="100" height="100"&gt;
+  &lt;circle class="my-circle" cx="50" cy="50" r="40" /&gt;
+&lt;/svg&gt;
+                </code></pre>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Basic Shapes (Rectangle, Circle, Line)</h3>
+      <svg width="300" height="150" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="100" height="80" class="svg-rect" />
+        <circle cx="180" cy="60" r="40" class="svg-circle" />
+        <line x1="10" y1="130" x2="290" y2="130" class="svg-line" />
+      </svg>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Basic SVG Shapes&lt;/title&gt;
+    &lt;style&gt;
+        svg { border: 1px dashed gray; }
+        .svg-rect { fill: lightcoral; stroke: darkred; stroke-width: 2; }
+        .svg-circle { fill: lightblue; stroke: navy; stroke-width: 3; }
+        .svg-line { stroke: green; stroke-width: 4; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Rectangle, Circle, and Line&lt;/h1&gt;
+    &lt;svg width="300" height="150" xmlns="http://www.w3.org/2000/svg"&gt;
+        &lt;!-- Rectangle --&gt;
+        &lt;rect x="10" y="10" width="100" height="80" class="svg-rect" /&gt;
+
+        &lt;!-- Circle --&gt;
+        &lt;circle cx="180" cy="60" r="40" class="svg-circle" /&gt;
+
+        &lt;!-- Line --&gt;
+        &lt;line x1="10" y1="130" x2="290" y2="130" class="svg-line" /&gt;
+    &lt;/svg&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Polygon and Text</h3>
+      <svg width="250" height="150" xmlns="http://www.w3.org/2000/svg">
+        <polygon
+          points="50,10 100,10 125,50 100,90 50,90 25,50"
+          fill="gold"
+          stroke="orange"
+          stroke-width="3"
+        />
+        <text x="140" y="75" class="svg-text" font-weight="bold">SVG Text</text>
+      </svg>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;SVG Polygon and Text&lt;/title&gt;
+    &lt;style&gt;
+        svg { border: 1px dashed gray; }
+        .svg-text { font-family: sans-serif; font-size: 20px; fill: purple; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Polygon and Text&lt;/h1&gt;
+     &lt;svg width="250" height="150" xmlns="http://www.w3.org/2000/svg"&gt;
+        &lt;!-- Hexagon using polygon --&gt;
+         &lt;polygon points="50,10 100,10 125,50 100,90 50,90 25,50"
+                  fill="gold" stroke="orange" stroke-width="3" /&gt;
+
+        &lt;!-- Simple Text --&gt;
+         &lt;text x="140" y="75" class="svg-text" font-weight="bold"&gt;SVG Text&lt;/text&gt;
+     &lt;/svg&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Using ViewBox for Scalability</h3>
+      <p>
+        This SVG defines a 100x100 internal coordinate system using <code>viewBox</code>
+        but is displayed in a 200x200 container, effectively scaling the content
+        up.
+      </p>
+      <svg
+        width="200"
+        height="200"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect x="0" y="0" width="100" height="100" fill="#eee" />
+        <circle cx="50" cy="50" r="45" fill="seagreen" />
+        <text x="50" y="55" text-anchor="middle" fill="white" font-size="10">
+          Scaled
+        </text>
+      </svg>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;SVG ViewBox&lt;/title&gt;
+    &lt;style&gt;
+        svg { border: 1px dashed gray; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Using viewBox&lt;/h1&gt;
+     &lt;!--
+       width/height set the display size (200x200).
+       viewBox sets the internal coordinate system (0,0 to 100,100).
+       The browser scales the 100x100 content to fit the 200x200 box.
+     --&gt;
+     &lt;svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"&gt;
+        &lt;!-- Light gray background for the viewbox area --&gt;
+        &lt;rect x="0" y="0" width="100" height="100" fill="#eee" /&gt;
+
+        &lt;!-- Circle centered in the 100x100 coordinate system --&gt;
+        &lt;circle cx="50" cy="50" r="45" fill="seagreen" /&gt;
+
+         &lt;!-- Text centered using text-anchor --&gt;
+         &lt;text x="50" y="55" text-anchor="middle" fill="white" font-size="10"&gt;Scaled&lt;/text&gt;
+     &lt;/svg&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. What does SVG stand for, and what is its main advantage over
+            raster graphics like JPEG or PNG?
+          </p>
+          <div class="answer">
+            <p>
+              SVG stands for Scalable Vector Graphics. Its main advantage is
+              scalability: SVG images can be resized infinitely without losing
+              quality or becoming pixelated because they are defined
+              mathematically, unlike pixel-based raster graphics.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. How do you draw a circle in SVG, and what attributes define its
+            position and size?
+          </p>
+          <div class="answer">
+            <p>
+              You use the <code>&lt;circle&gt;</code> element. The attributes
+              <code>cx</code> and <code>cy</code> define the center coordinates,
+              and the <code>r</code> attribute defines the radius.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. What is the difference between the SVG
+            <code>&lt;polyline&gt;</code> and
+            <code>&lt;polygon&gt;</code> elements?
+          </p>
+          <div class="answer">
+            <p>
+              Both draw shapes using a series of connected straight lines
+              defined by the <code>points</code> attribute. However,
+              <code>&lt;polygon&gt;</code> automatically closes the shape by
+              connecting the last point back to the first point, while
+              <code>&lt;polyline&gt;</code> leaves the shape open.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. Name two ways you can style SVG elements (e.g., set their fill
+            color).
+          </p>
+          <div class="answer">
+            <p>
+              1. Using presentation attributes directly on the SVG element
+              (e.g., <code>&lt;rect fill="blue" /&gt;</code>).<br />2. Using CSS
+              rules targeting the SVG elements (e.g.,
+              <code>rect { fill: blue; }</code>).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What is the purpose of the <code>viewBox</code> attribute on the
+            <code>&lt;svg&gt;</code> element?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>viewBox</code> attribute defines the internal coordinate
+              system (min-x, min-y, width, height) of the SVG graphic. It allows
+              the SVG content to scale proportionally to fit the dimensions
+              specified by the <code>width</code> and
+              <code>height</code> attributes of the
+              <code>&lt;svg&gt;</code> tag, preserving the aspect ratio.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_12_canvas_intro.html" class="toc-link">&larr; Day 12</a>
+        <a href="day_14_iframes.html" class="toc-link">Go to Day 14 &rarr;</a>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-css.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

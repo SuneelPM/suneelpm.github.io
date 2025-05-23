@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 1: Introduction to HTML & Web Basics</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: block;
+        text-align: center;
+        margin-top: 2rem;
+        color: #2563eb;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">
+        Day 1: Introduction to HTML & Web Basics
+      </h1>
+      <a href="index.html" class="toc-link">Back to Table of Contents</a>
+
+      <h2 class="text-2xl font-semibold mb-4">What is HTML?</h2>
+      <p>
+        HTML stands for <strong>HyperText Markup Language</strong>. It's the
+        standard markup language used to create and structure content on the
+        World Wide Web. Think of it as the skeleton or the blueprint of a
+        webpage.
+      </p>
+      <p>
+        It's not a programming language like Python or Java, meaning it doesn't
+        have logic like loops or conditional statements. Instead, HTML uses
+        "markup" – a system of tags – to describe the structure and meaning of
+        web content. Browsers (like Chrome, Firefox, Safari) read HTML files and
+        render them into the visual webpages we see.
+      </p>
+      <ul>
+        <li>
+          <strong>HyperText:</strong> Refers to links that connect web pages to
+          one another, either within a single website or between websites. Links
+          are a fundamental aspect of the Web.
+        </li>
+        <li>
+          <strong>Markup Language:</strong> Means you use HTML to simply "mark
+          up" a text document with tags that tell a web browser how to structure
+          it for display.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        How the Web Works (Simplified)
+      </h2>
+      <p>
+        When you type a web address (URL) like <code>www.google.com</code> into
+        your browser:
+      </p>
+      <ol class="list-decimal list-inside mb-4 space-y-2">
+        <li>
+          <strong>Request:</strong> Your browser sends a request over the
+          internet to a special computer called a
+          <strong>web server</strong> where the website's files (including HTML
+          files) are stored.
+        </li>
+        <li>
+          <strong>Server Processing:</strong> The web server finds the requested
+          HTML file (e.g., <code>index.html</code>).
+        </li>
+        <li>
+          <strong>Response:</strong> The server sends the HTML file (and
+          potentially other files like CSS for styling and JavaScript for
+          interactivity) back to your browser.
+        </li>
+        <li>
+          <strong>Rendering:</strong> Your browser reads the HTML code to
+          understand the structure (headings, paragraphs, images, etc.) and then
+          displays the webpage visually on your screen.
+        </li>
+      </ol>
+      <p>
+        HTML provides the structure, CSS (Cascading Style Sheets) adds the style
+        (colors, fonts, layout), and JavaScript adds interactivity (animations,
+        dynamic updates). We'll focus solely on HTML for now.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Introduction to Browser Developer Tools
+      </h2>
+      <p>
+        Every modern web browser comes with built-in "Developer Tools" (often
+        called DevTools). These tools are essential for web developers to
+        inspect, debug, and understand how webpages are built.
+      </p>
+      <p>
+        <strong>How to open DevTools:</strong>
+      </p>
+      <ul class="list-disc list-inside mb-4">
+        <li>
+          Right-click on any webpage element and select "Inspect" or "Inspect
+          Element".
+        </li>
+        <li>Press the F12 key on your keyboard (common on Windows).</li>
+        <li>
+          Use keyboard shortcuts: Ctrl+Shift+I (Windows/Linux) or Cmd+Opt+I
+          (Mac).
+        </li>
+      </ul>
+      <p>
+        <strong>Key Features (Focus on Elements/Inspector):</strong>
+      </p>
+      <ul class="list-disc list-inside mb-4">
+        <li>
+          <strong>Elements (or Inspector) Panel:</strong> Shows the live HTML
+          structure of the page. You can see the tags, attributes, and content.
+          You can even temporarily edit the HTML here to see how changes affect
+          the page (these changes are temporary and reset on page reload).
+        </li>
+        <li>
+          <strong>Styles Panel (within Elements):</strong> Shows the CSS rules
+          applied to the selected HTML element.
+        </li>
+        <li>
+          <strong>Console Panel:</strong> Used mainly for JavaScript errors and
+          logging, but useful to know it exists.
+        </li>
+      </ul>
+      <p>
+        Get comfortable opening and exploring the DevTools on different
+        websites. It's like looking under the hood of a car!
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Basic HTML Structure Concept</h3>
+      <p>
+        This isn't a full HTML file yet, but illustrates the idea of tags
+        marking up content.
+      </p>
+      <pre><code class="language-html">
+&lt;h1&gt;This is a Main Heading&lt;/h1&gt;
+&lt;p&gt;This is a paragraph of text. HTML uses tags like &lt;p&gt; to define content blocks.&lt;/p&gt;
+&lt;p&gt;Another paragraph.&lt;/p&gt;
+        </code></pre>
+      <p>
+        Here, <code>&lt;h1&gt;</code> and <code>&lt;/h1&gt;</code> mark the text
+        between them as a level 1 heading. <code>&lt;p&gt;</code> and
+        <code>&lt;/p&gt;</code> mark text as paragraphs.
+      </p>
+
+      <h3>Example 2: Identifying HTML in DevTools</h3>
+      <p>1. Open any webpage (e.g., google.com).</p>
+      <p>2. Right-click on the main logo or search bar.</p>
+      <p>3. Select "Inspect" or "Inspect Element".</p>
+      <p>
+        4. Observe the HTML code highlighted in the Elements panel. You'll see
+        tags like <code>&lt;img&gt;</code> (for the logo image) or
+        <code>&lt;input&gt;</code> (for the search bar). This is the underlying
+        HTML structure the browser uses.
+      </p>
+      <p>(No code block needed here as it's an action to perform).</p>
+
+      <h3>Example 3: Client-Server Interaction Analogy</h3>
+      <p>Think of ordering a pizza:</p>
+      <ol class="list-decimal list-inside mb-4 space-y-1">
+        <li>
+          <strong>You (Browser):</strong> Decide you want pizza (a webpage) and
+          call the pizza place (enter URL/click link).
+        </li>
+        <li>
+          <strong>Phone Call (Request):</strong> You tell the order taker what
+          you want (requesting a specific HTML page).
+        </li>
+        <li>
+          <strong>Pizza Place (Web Server):</strong> Receives your order, finds
+          the recipe (HTML file), and makes the pizza (processes the request).
+        </li>
+        <li>
+          <strong>Delivery Driver (Response):</strong> Brings the pizza (HTML
+          file and other assets) to your house.
+        </li>
+        <li>
+          <strong>Eating the Pizza (Rendering):</strong> You open the box and
+          see the pizza arranged (Browser displays the webpage based on HTML
+          structure).
+        </li>
+      </ol>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>1. What does HTML stand for?</p>
+          <div class="answer">
+            <p>HyperText Markup Language.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>2. Is HTML a programming language? Why or why not?</p>
+          <div class="answer">
+            <p>
+              No, HTML is a markup language. It doesn't contain logic (like
+              loops or conditions) but uses tags to describe the structure and
+              content of a webpage.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>3. What is the role of a web browser in relation to HTML?</p>
+          <div class="answer">
+            <p>
+              A web browser reads (parses) HTML files sent from a web server and
+              renders (displays) the content visually according to the structure
+              defined by the HTML tags.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. What is the purpose of Browser Developer Tools for someone
+            learning HTML?
+          </p>
+          <div class="answer">
+            <p>
+              DevTools allow learners to inspect the underlying HTML structure
+              of any webpage, see how elements are coded, and understand the
+              relationship between the code and the visual output. It's useful
+              for learning and debugging.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. Briefly describe the client-server model in the context of
+            accessing a webpage.
+          </p>
+          <div class="answer">
+            <p>
+              The client (your browser) sends a request for a webpage to the
+              server (where the website files are stored). The server processes
+              the request and sends back a response (the HTML file and other
+              necessary files). The client then renders these files to display
+              the webpage.
+            </p>
+          </div>
+        </div>
+      </div>
+      <a href="index.html" class="toc-link">Back to Table of Contents</a>
+      <a href="day_2_basic_html_structure.html" class="toc-link"
+        >Go to Day 2 &rarr;</a
+      >
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({
+        // Optional: start line numbering from 1. Default is 1.
+        // start: 1,
+        // Optional: disable line numbering for specific languages.
+        // languages: ['css']
+      });
+    </script>
+  </body>
+</html>

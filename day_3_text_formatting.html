@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 3: Text Formatting</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #d1d5db;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      th {
+        background-color: #e5e7eb;
+        font-weight: bold;
+      }
+      strong {
+        color: #065f46;
+        font-weight: bold;
+      }
+      em {
+        color: #9d174d;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 3: Text Formatting in HTML</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_2_basic_html_structure.html" class="toc-link"
+          >&larr; Day 2</a
+        >
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Structuring Content with Headings and Paragraphs
+      </h2>
+      <p>
+        Well-structured content is easier to read and understand, both for users
+        and search engines. HTML provides tags specifically for creating
+        headings and paragraphs.
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong
+            >Headings (<code>&lt;h1&gt;</code> to
+            <code>&lt;h6&gt;</code>):</strong
+          >
+          These tags define headings. <code>&lt;h1&gt;</code> represents the
+          most important heading (usually the main title of the page or
+          section), and <code>&lt;h6&gt;</code> represents the least important.
+          Browsers typically display headings in larger and bolder fonts than
+          normal text. It's crucial to use headings hierarchically (don't skip
+          levels, e.g., go from an <code>&lt;h1&gt;</code> directly to an
+          <code>&lt;h3&gt;</code> without an <code>&lt;h2&gt;</code>). There
+          should generally be only one <code>&lt;h1&gt;</code> per page.
+        </li>
+        <li>
+          <strong>Paragraphs (<code>&lt;p&gt;</code>):</strong> This tag defines
+          a paragraph of text. Browsers automatically add some vertical space
+          (margin) before and after each paragraph. Any block of text that forms
+          a distinct paragraph should be wrapped in <code>&lt;p&gt;</code> tags.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Basic Text Styling: Bold, Italic, Underline, etc.
+      </h2>
+      <p>
+        HTML offers several tags to change the appearance or semantic meaning of
+        text within a block (like a paragraph). These are often called "inline"
+        elements.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Tag</th>
+            <th>Description</th>
+            <th>Typical Browser Rendering</th>
+            <th>Semantic Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>&lt;strong&gt;</code></td>
+            <td>Marks text with strong importance.</td>
+            <td>Bold</td>
+            <td>Indicates significant importance, seriousness, or urgency.</td>
+          </tr>
+          <tr>
+            <td><code>&lt;b&gt;</code></td>
+            <td>Stylistically offsets text (historically "bold").</td>
+            <td>Bold</td>
+            <td>
+              Draws attention without implying extra importance (e.g., keywords,
+              product names). Use <code>&lt;strong&gt;</code> if importance is
+              intended.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;em&gt;</code></td>
+            <td>Marks text with emphasis.</td>
+            <td>Italic</td>
+            <td>
+              Indicates stress emphasis, changing the meaning of the sentence.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;i&gt;</code></td>
+            <td>Stylistically offsets text (historically "italic").</td>
+            <td>Italic</td>
+            <td>
+              Represents text in an alternate voice or mood (e.g., technical
+              terms, foreign words, thoughts). Use <code>&lt;em&gt;</code> if
+              emphasis is intended.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;u&gt;</code></td>
+            <td>
+              Represents text with an unarticulated, non-textual annotation
+              (historically "underline").
+            </td>
+            <td>Underline</td>
+            <td>
+              Often used for things like marking misspelled words or proper
+              names in Chinese text. Avoid using it purely for decoration, as
+              users often associate underlines with hyperlinks.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;mark&gt;</code></td>
+            <td>
+              Represents text marked or highlighted for reference or notation
+              purposes.
+            </td>
+            <td>Highlighted background (often yellow)</td>
+            <td>
+              Indicates text relevance in a specific context (e.g., highlighting
+              search terms in results).
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;sub&gt;</code></td>
+            <td>Defines subscript text.</td>
+            <td>Lowered, smaller font</td>
+            <td>
+              Used for chemical formulas (H<sub>2</sub>O), mathematical
+              variables, etc.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;sup&gt;</code></td>
+            <td>Defines superscript text.</td>
+            <td>Raised, smaller font</td>
+            <td>
+              Used for exponents (x<sup>2</sup>), footnotes, ordinal numbers
+              (1<sup>st</sup>), etc.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;small&gt;</code></td>
+            <td>Represents side comments or small print.</td>
+            <td>Smaller font size</td>
+            <td>
+              Used for things like copyright notices or legal disclaimers.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;del&gt;</code></td>
+            <td>Represents deleted text.</td>
+            <td>Strikethrough</td>
+            <td>
+              Indicates text that has been removed or is no longer accurate.
+            </td>
+          </tr>
+          <tr>
+            <td><code>&lt;ins&gt;</code></td>
+            <td>Represents inserted text.</td>
+            <td>Underline (often)</td>
+            <td>
+              Indicates text that has been added to the document. Often used
+              with <code>&lt;del&gt;</code>.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Important Note:</strong> While tags like
+        <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> primarily define
+        presentation (bold, italic), tags like <code>&lt;strong&gt;</code> and
+        <code>&lt;em&gt;</code> carry semantic meaning (importance, emphasis).
+        It's generally better to use the semantic tags when the meaning applies,
+        as this benefits accessibility (screen readers can convey
+        importance/emphasis) and search engines. Use <code>&lt;b&gt;</code> and
+        <code>&lt;i&gt;</code> when there's no change in meaning, just style.
+        For most styling, CSS is the preferred method, but these HTML tags are
+        useful for specific semantic or stylistic inline adjustments.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Line Breaks and Horizontal Rules
+      </h2>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Line Break (<code>&lt;br&gt;</code>):</strong> This is an
+          empty tag (no closing tag needed) that forces a line break within a
+          block of text (like inside a paragraph). Use it sparingly; if you need
+          separate blocks of text, use multiple <code>&lt;p&gt;</code> tags.
+          It's useful for things like addresses or poetry where line structure
+          matters within a single block.
+        </li>
+        <li>
+          <strong>Horizontal Rule (<code>&lt;hr&gt;</code>):</strong> This empty
+          tag represents a thematic break between paragraph-level elements. It's
+          typically rendered as a horizontal line across the page. Use it to
+          indicate a shift in topic or scene.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Headings, Paragraphs, and Basic Styling</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Text Formatting Example 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Main Page Title (h1)&lt;/h1&gt;
+    &lt;p&gt;This is the introductory paragraph. It provides context for the page.&lt;/p&gt;
+
+    &lt;h2&gt;A Major Section (h2)&lt;/h2&gt;
+    &lt;p&gt;This paragraph discusses the first main topic. We can use &lt;strong&gt;strong importance&lt;/strong&gt; for key concepts and &lt;em&gt;emphasis&lt;/em&gt; for stressed words. Sometimes, you might just want to draw attention using &lt;b&gt;bold&lt;/b&gt; or &lt;i&gt;italics&lt;/i&gt; for terms.&lt;/p&gt;
+
+    &lt;h3&gt;A Subsection (h3)&lt;/h3&gt;
+    &lt;p&gt;More details under the subsection. Let's highlight &lt;mark&gt;this important finding&lt;/mark&gt;.&lt;/p&gt;
+
+    &lt;h2&gt;Another Major Section (h2)&lt;/h2&gt;
+    &lt;p&gt;Concluding thoughts.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>
+        Example 2: Using Subscript, Superscript, Deleted, Inserted, and Small
+        Text
+      </h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Advanced Formatting&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Scientific and Editorial Notations&lt;/h1&gt;
+
+    &lt;p&gt;The chemical formula for water is H&lt;sub&gt;2&lt;/sub&gt;O.&lt;/p&gt;
+    &lt;p&gt;Einstein's famous equation is E=mc&lt;sup&gt;2&lt;/sup&gt;.&lt;/p&gt;
+    &lt;p&gt;Please read the &lt;small&gt;terms and conditions&lt;/small&gt; carefully.&lt;/p&gt;
+    &lt;p&gt;The original price was &lt;del&gt;$100&lt;/del&gt;, now it's &lt;ins&gt;$75&lt;/ins&gt;!&lt;/p&gt;
+
+    &lt;!-- This shows how del and ins might be used together --&gt;
+    &lt;p&gt;The event is scheduled for &lt;del&gt;May 5th&lt;/del&gt; &lt;ins&gt;May 12th&lt;/ins&gt;.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Using Line Breaks and Horizontal Rules</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Breaks and Rules&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Structure Elements&lt;/h1&gt;
+
+    &lt;p&gt;Haiku Corner:&lt;br&gt;
+    An old silent pond...&lt;br&gt;
+    A frog jumps into the pond,&lt;br&gt;
+    splash! Silence again.
+    &lt;/p&gt;
+
+    &lt;hr&gt; &lt;!-- Thematic break between different content sections --&gt;
+
+    &lt;p&gt;Mailing Address:&lt;br&gt;
+    ACME Corp.&lt;br&gt;
+    123 Main Street&lt;br&gt;
+    Anytown, CA 90210
+    &lt;/p&gt;
+
+    &lt;hr&gt;
+
+    &lt;p&gt;This is the final section of the page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. Which heading tag represents the most important heading on a
+            page?
+          </p>
+          <div class="answer">
+            <p>The <code>&lt;h1&gt;</code> tag.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What is the semantic difference between
+            <code>&lt;strong&gt;</code> and <code>&lt;b&gt;</code>?
+          </p>
+          <div class="answer">
+            <p>
+              <code>&lt;strong&gt;</code> indicates strong importance or
+              seriousness of the text, while <code>&lt;b&gt;</code> primarily
+              represents a stylistic offset (like bold) without implying added
+              importance.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. When might you use the <code>&lt;br&gt;</code> tag appropriately?
+          </p>
+          <div class="answer">
+            <p>
+              It's appropriate for content where line breaks are part of the
+              content itself, such as in poetry or mailing addresses, within a
+              single block element like <code>&lt;p&gt;</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>4. What does the <code>&lt;hr&gt;</code> tag represent?</p>
+          <div class="answer">
+            <p>
+              It represents a thematic break between paragraph-level elements,
+              often visualized as a horizontal line. It signifies a shift in
+              topic.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. How would you write "CO<sub>2</sub>" (Carbon Dioxide) using HTML
+            tags?
+          </p>
+          <div class="answer">
+            <p><code>CO&lt;sub&gt;2&lt;/sub&gt;</code></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_2_basic_html_structure.html" class="toc-link"
+          >&larr; Day 2</a
+        >
+        <a href="day_4_lists.html" class="toc-link">Go to Day 4 &rarr;</a>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll(); // Ensure highlighting applies
+    </script>
+  </body>
+</html>

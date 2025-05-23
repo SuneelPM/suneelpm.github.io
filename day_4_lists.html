@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 4: Lists</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      /* pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      } */
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      ul:not(.browser-default) {
+        list-style: disc;
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+      } /* Basic ul styling */
+      ol:not(.browser-default) {
+        list-style: decimal;
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+      } /* Basic ol styling */
+      dt {
+        font-weight: bold;
+        margin-top: 0.5rem;
+        color: #111827;
+      }
+      dd {
+        margin-left: 2rem;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 4: HTML Lists</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_3_text_formatting.html" class="toc-link">&larr; Day 3</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">Introduction to Lists</h2>
+      <p>
+        Lists are fundamental for organizing information on web pages. They
+        allow you to group related items, making content clearer and more
+        scannable for users. HTML provides three main types of lists: unordered
+        lists, ordered lists, and definition lists.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Unordered Lists (<code>&lt;ul&gt;</code>)
+      </h2>
+      <p>
+        Unordered lists are used when the order of the items does not matter.
+        Each item in the list is typically marked with a bullet point (though
+        this can be changed with CSS).
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4 browser-default">
+        <li>
+          The entire list is wrapped in a <code>&lt;ul&gt;</code> (unordered
+          list) tag.
+        </li>
+        <li>
+          Each item within the list is wrapped in an
+          <code>&lt;li&gt;</code> (list item) tag.
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;ul&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;li&gt;Bananas&lt;/li&gt;
+&lt;/ul&gt;
+        </code></pre>
+      <p><strong>Rendered Output:</strong></p>
+      <ul class="browser-default">
+        <li>Apples</li>
+        <li>Oranges</li>
+        <li>Bananas</li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Ordered Lists (<code>&lt;ol&gt;</code>)
+      </h2>
+      <p>
+        Ordered lists are used when the sequence of the items is important. Each
+        item is typically marked with a number or letter.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4 browser-default">
+        <li>
+          The entire list is wrapped in an <code>&lt;ol&gt;</code> (ordered
+          list) tag.
+        </li>
+        <li>
+          Each item within the list is also wrapped in an
+          <code>&lt;li&gt;</code> (list item) tag.
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;ol&gt;
+  &lt;li&gt;First Step: Gather ingredients&lt;/li&gt;
+  &lt;li&gt;Second Step: Mix ingredients&lt;/li&gt;
+  &lt;li&gt;Third Step: Bake&lt;/li&gt;
+&lt;/ol&gt;
+        </code></pre>
+      <p><strong>Rendered Output:</strong></p>
+      <ol class="browser-default">
+        <li>First Step: Gather ingredients</li>
+        <li>Second Step: Mix ingredients</li>
+        <li>Third Step: Bake</li>
+      </ol>
+      <p>
+        You can change the numbering type using the <code>type</code> attribute
+        (e.g., <code>type="A"</code> for uppercase letters,
+        <code>type="a"</code> for lowercase, <code>type="I"</code> for uppercase
+        Roman numerals, <code>type="i"</code> for lowercase) and the starting
+        number using the <code>start</code> attribute (e.g.,
+        <code>start="5"</code>).
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Definition Lists (<code>&lt;dl&gt;</code>)
+      </h2>
+      <p>
+        Definition lists (also sometimes called description lists) are used to
+        present items and their corresponding descriptions, like terms and
+        definitions in a glossary or key-value pairs.
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4 browser-default">
+        <li>
+          The entire list is wrapped in a <code>&lt;dl&gt;</code> (definition
+          list) tag.
+        </li>
+        <li>
+          Each term is wrapped in a <code>&lt;dt&gt;</code> (definition term)
+          tag.
+        </li>
+        <li>
+          Each description/definition associated with a term is wrapped in a
+          <code>&lt;dd&gt;</code> (definition description) tag.
+        </li>
+        <li>
+          You can have multiple <code>&lt;dd&gt;</code>s for one
+          <code>&lt;dt&gt;</code>, or multiple <code>&lt;dt&gt;</code>s
+          associated with one or more <code>&lt;dd&gt;</code>s (though the
+          former is more common).
+        </li>
+      </ul>
+      <pre><code class="language-html">
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language - used for structuring web content.&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Cascading Style Sheets - used for styling web content.&lt;/dd&gt;
+  &lt;dd&gt;It makes websites look good!&lt;/dd&gt;
+&lt;/dl&gt;
+        </code></pre>
+      <p><strong>Rendered Output:</strong></p>
+      <dl>
+        <dt>HTML</dt>
+        <dd>HyperText Markup Language - used for structuring web content.</dd>
+        <dt>CSS</dt>
+        <dd>Cascading Style Sheets - used for styling web content.</dd>
+        <dd>It makes websites look good!</dd>
+      </dl>
+
+      <h2 class="text-2xl font-semibold mb-4">Nesting Lists</h2>
+      <p>
+        You can place lists inside other list items (<code>&lt;li&gt;</code>) to
+        create nested or hierarchical structures. This is common for outlines,
+        navigation menus, or detailed steps.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Simple Shopping List (Unordered)</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Shopping List&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Grocery Shopping List&lt;/h1&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Milk&lt;/li&gt;
+        &lt;li&gt;Bread&lt;/li&gt;
+        &lt;li&gt;Eggs&lt;/li&gt;
+        &lt;li&gt;Cheese&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Recipe Steps (Ordered with Attributes)</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Recipe Steps&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;How to Make Tea&lt;/h1&gt;
+    &lt;ol type="1" start="1"&gt; &lt;!-- Default numbering, explicitly starting at 1 --&gt;
+        &lt;li&gt;Boil water.&lt;/li&gt;
+        &lt;li&gt;Place tea bag in cup.&lt;/li&gt;
+        &lt;li&gt;Pour boiling water into cup.&lt;/li&gt;
+        &lt;li&gt;Steep for 3-5 minutes.&lt;/li&gt;
+        &lt;li&gt;Remove tea bag and enjoy.&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;h2&gt;Alternative Options (using letters)&lt;/h2&gt;
+     &lt;ol type="a"&gt;
+        &lt;li&gt;Add sugar or honey.&lt;/li&gt;
+        &lt;li&gt;Add milk or lemon.&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Nested List (Course Outline)</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Nested List Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Web Development Basics&lt;/h1&gt;
+    &lt;ul&gt;
+        &lt;li&gt;HTML Fundamentals
+            &lt;ol&gt;
+                &lt;li&gt;Tags and Elements&lt;/li&gt;
+                &lt;li&gt;Structure&lt;/li&gt;
+                &lt;li&gt;Text Formatting&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+        &lt;li&gt;CSS Styling
+            &lt;ul&gt;
+                &lt;li&gt;Selectors&lt;/li&gt;
+                &lt;li&gt;Box Model&lt;/li&gt;
+                &lt;li&gt;Layouts&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;JavaScript Basics&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (Conceptual):</strong></p>
+      <ul class="browser-default">
+        <li>
+          HTML Fundamentals
+          <ol class="browser-default">
+            <li>Tags and Elements</li>
+            <li>Structure</li>
+            <li>Text Formatting</li>
+          </ol>
+        </li>
+        <li>
+          CSS Styling
+          <ul class="browser-default">
+            <li>Selectors</li>
+            <li>Box Model</li>
+            <li>Layouts</li>
+          </ul>
+        </li>
+        <li>JavaScript Basics</li>
+      </ul>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>1. Which HTML tag is used to create an unordered list?</p>
+          <div class="answer">
+            <p>The <code>&lt;ul&gt;</code> tag.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What tag defines an individual item within any type of list
+            (ordered or unordered)?
+          </p>
+          <div class="answer">
+            <p>The <code>&lt;li&gt;</code> (list item) tag.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. When should you use an ordered list (<code>&lt;ol&gt;</code>)
+            instead of an unordered list (<code>&lt;ul&gt;</code>)?
+          </p>
+          <div class="answer">
+            <p>
+              Use an ordered list when the sequence or order of the items is
+              important (e.g., steps in a process, rankings).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. In a definition list (<code>&lt;dl&gt;</code>), what do the
+            <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> tags represent?
+          </p>
+          <div class="answer">
+            <p>
+              <code>&lt;dt&gt;</code> represents the term (or name) being
+              defined, and <code>&lt;dd&gt;</code> represents the description
+              (or value) of that term.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. How do you create a nested list (e.g., a numbered list inside a
+            bulleted list)?
+          </p>
+          <div class="answer">
+            <p>
+              You place the entire inner list (e.g., the
+              <code>&lt;ol&gt;...&lt;/ol&gt;</code> structure) inside an
+              <code>&lt;li&gt;</code> tag of the outer list (e.g., the
+              <code>&lt;ul&gt;</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_3_text_formatting.html" class="toc-link">&larr; Day 3</a>
+        <a href="day_5_links_and_images.html" class="toc-link"
+          >Go to Day 5 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

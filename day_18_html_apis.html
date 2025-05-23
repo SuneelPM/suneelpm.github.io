@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 18: HTML APIs (Web Storage)</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      pre[class*="language-"] code {
+        background: transparent;
+        padding: 0;
+        border: none;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Example styles */
+      .storage-demo div {
+        margin-bottom: 1rem;
+      }
+      .storage-demo label {
+        margin-right: 0.5rem;
+        font-weight: bold;
+      }
+      .storage-demo input[type="text"],
+      .storage-demo button {
+        padding: 5px 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-right: 5px;
+      }
+      .storage-demo button {
+        background-color: #3b82f6;
+        color: white;
+        cursor: pointer;
+      }
+      .storage-demo button:hover {
+        background-color: #2563eb;
+      }
+      #outputArea {
+        margin-top: 1rem;
+        padding: 10px;
+        border: 1px dashed #ccc;
+        min-height: 50px;
+        background-color: #f9fafb;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 18: HTML APIs (Web Storage)</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_17_intro_js.html" class="toc-link">← Day 17</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">Introduction to Web APIs</h2>
+      <p>
+        While HTML defines the structure, modern web browsers provide a wide
+        range of <strong>Application Programming Interfaces (APIs)</strong> that
+        allow web pages (via JavaScript) to interact with browser features and
+        device capabilities. These APIs extend what HTML alone can do.
+      </p>
+      <p>Examples of Web APIs include:</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <strong>DOM API:</strong> For manipulating the HTML document structure
+          (as seen in the previous lesson).
+        </li>
+        <li>
+          <strong>Fetch API / XMLHttpRequest:</strong> For making network
+          requests to servers.
+        </li>
+        <li>
+          <strong>Geolocation API:</strong> For accessing the user's physical
+          location (with permission).
+        </li>
+        <li><strong>Canvas API:</strong> For drawing 2D graphics (as seen).</li>
+        <li>
+          <strong>Web Audio API:</strong> For processing and synthesizing audio.
+        </li>
+        <li>
+          <strong>Web Storage API:</strong> For storing data locally in the
+          user's browser. (Focus of today)
+        </li>
+        <li>And many more...</li>
+      </ul>
+      <p>
+        Today, we'll focus on the Web Storage API, which provides mechanisms for
+        web pages to store key/value data locally within the user's web browser.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The Web Storage API: <code>localStorage</code> and
+        <code>sessionStorage</code>
+      </h2>
+      <p>
+        Web Storage provides two primary mechanisms for storing data on the
+        client-side (in the user's browser): <code>localStorage</code> and
+        <code>sessionStorage</code>. Both allow you to store data as key-value
+        pairs, where both keys and values are strings.
+      </p>
+      <p>
+        They offer advantages over traditional cookies for client-side storage:
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          Larger storage capacity (typically 5-10MB per origin, compared to ~4KB
+          for cookies).
+        </li>
+        <li>
+          Data is not automatically sent with every HTTP request to the server,
+          improving performance and security.
+        </li>
+        <li>
+          Provide a simpler JavaScript API compared to manipulating cookies.
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3"><code>localStorage</code></h3>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Persistence:</strong> Data stored in
+          <code>localStorage</code> persists even after the browser window is
+          closed and reopened. It remains available until explicitly cleared by
+          the web application, the user, or the browser (e.g., due to storage
+          limits or privacy settings).
+        </li>
+        <li>
+          <strong>Scope:</strong> Data is specific to the protocol (http/https)
+          and domain (e.g., <code>www.example.com</code>) of the page that
+          stored it (the "origin"). All pages from the same origin can access
+          the same <code>localStorage</code> data.
+        </li>
+        <li>
+          <strong>Use Cases:</strong> Storing user preferences (like theme
+          choice), offline application data, user information (that isn't highly
+          sensitive), remembering if a user has seen a notification, etc.
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3"><code>sessionStorage</code></h3>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Persistence:</strong> Data stored in
+          <code>sessionStorage</code> only lasts for the duration of the browser
+          <strong>session</strong>. A session ends when the browser tab or
+          window is closed. Opening the same page in a new tab or window starts
+          a new session with separate <code>sessionStorage</code>.
+        </li>
+        <li>
+          <strong>Scope:</strong> Like <code>localStorage</code>, data is
+          specific to the origin. However, it's also specific to the individual
+          browser tab/window. Data in one tab's <code>sessionStorage</code> is
+          not accessible by another tab, even if they are from the same origin.
+        </li>
+        <li>
+          <strong>Use Cases:</strong> Storing temporary user state within a
+          single Browse session (e.g., user's input in a multi-step form before
+          final submission, current state of a single-page application within
+          that tab).
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Using the Web Storage API (JavaScript)
+      </h2>
+      <p>
+        Both <code>localStorage</code> and <code>sessionStorage</code> share the
+        same simple API methods. You access them via the global
+        <code>window</code> object (though the <code>window.</code> prefix is
+        often optional).
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Set Item:</strong> Stores a key-value pair. If the key already
+          exists, its value is updated. Remember, both key and value must be
+          strings. If you need to store objects or arrays, convert them to JSON
+          strings first (<code>JSON.stringify()</code>).
+          <pre><code class="language-javascript">localStorage.setItem('username', 'Alice');
+sessionStorage.setItem('theme', 'dark');
+
+const userData = { id: 123, role: 'admin' };
+localStorage.setItem('user', JSON.stringify(userData));</code></pre>
+        </li>
+        <li>
+          <strong>Get Item:</strong> Retrieves the value associated with a given
+          key. Returns <code>null</code> if the key does not exist. If you
+          stored a JSON string, you'll need to parse it back
+          (<code>JSON.parse()</code>).
+          <pre><code class="language-javascript">const storedUsername = localStorage.getItem('username'); // Returns 'Alice' or null
+const currentTheme = sessionStorage.getItem('theme'); // Returns 'dark' or null
+
+const storedUserJSON = localStorage.getItem('user');
+const storedUserData = storedUserJSON ? JSON.parse(storedUserJSON) : null;</code></pre>
+        </li>
+        <li>
+          <strong>Remove Item:</strong> Deletes a specific key-value pair.
+          <pre><code class="language-javascript">localStorage.removeItem('username');
+sessionStorage.removeItem('theme');</code></pre>
+        </li>
+        <li>
+          <strong>Clear Storage:</strong> Deletes all key-value pairs for that
+          origin in the respective storage (either localStorage or
+          sessionStorage). Use with caution!
+          <pre><code class="language-javascript">localStorage.clear(); // Clears all localStorage for this origin
+sessionStorage.clear(); // Clears all sessionStorage for this tab/session</code></pre>
+        </li>
+        <li>
+          <strong>Get Key by Index:</strong> Retrieves the key at a specific
+          numerical index (storage order is not guaranteed). Less commonly used.
+          <pre><code class="language-javascript">const firstKey = localStorage.key(0);</code></pre>
+        </li>
+        <li>
+          <strong>Get Number of Items:</strong> Returns the total number of
+          items stored.
+          <pre><code class="language-javascript">const itemCount = localStorage.length;</code></pre>
+        </li>
+      </ul>
+      <p>
+        You can also access storage items using object-like bracket notation
+        (e.g., <code>localStorage['username']</code>), but the
+        <code>setItem</code>/<code>getItem</code> methods are generally
+        recommended as they avoid potential conflicts with built-in properties
+        of the Storage object.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Examples (Requires JavaScript Interaction)
+      </h2>
+      <p>
+        These examples demonstrate using Web Storage. You'll need to interact
+        with the buttons to see the effects (and potentially check your
+        browser's Developer Tools -> Application -> Storage).
+      </p>
+
+      <div class="storage-demo border p-4 rounded my-4">
+        <h3 class="text-lg font-semibold mb-2">
+          LocalStorage Demo (Persists after closing tab)
+        </h3>
+        <div>
+          <label for="localKeyInput">Key:</label>
+          <input type="text" id="localKeyInput" placeholder="e.g., name" />
+          <label for="localValueInput">Value:</label>
+          <input type="text" id="localValueInput" placeholder="e.g., Bob" />
+        </div>
+        <div>
+          <button id="localSetBtn">Set Item</button>
+          <button id="localGetBtn">Get Item</button>
+          <button id="localRemoveBtn">Remove Item</button>
+          <button id="localClearBtn">Clear All LocalStorage</button>
+        </div>
+        <div id="localOutputArea" class="outputArea">LocalStorage Output:</div>
+      </div>
+
+      <div class="storage-demo border p-4 rounded my-4">
+        <h3 class="text-lg font-semibold mb-2">
+          SessionStorage Demo (Cleared when tab closes)
+        </h3>
+        <div>
+          <label for="sessionKeyInput">Key:</label>
+          <input
+            type="text"
+            id="sessionKeyInput"
+            placeholder="e.g., tempColor"
+          />
+          <label for="sessionValueInput">Value:</label>
+          <input type="text" id="sessionValueInput" placeholder="e.g., blue" />
+        </div>
+        <div>
+          <button id="sessionSetBtn">Set Item</button>
+          <button id="sessionGetBtn">Get Item</button>
+          <button id="sessionRemoveBtn">Remove Item</button>
+          <button id="sessionClearBtn">Clear All SessionStorage</button>
+        </div>
+        <div id="sessionOutputArea" class="outputArea">
+          SessionStorage Output:
+        </div>
+      </div>
+
+      <h3>Example Code Behind the Demos</h3>
+      <p>
+        (This JavaScript is included in a script tag at the end of this page to
+        make the demos above work).
+      </p>
+      <pre><code class="language-javascript">
+// --- LocalStorage Demo Logic ---
+const localKeyInput = document.getElementById('localKeyInput');
+const localValueInput = document.getElementById('localValueInput');
+const localSetBtn = document.getElementById('localSetBtn');
+const localGetBtn = document.getElementById('localGetBtn');
+const localRemoveBtn = document.getElementById('localRemoveBtn');
+const localClearBtn = document.getElementById('localClearBtn');
+const localOutputArea = document.getElementById('localOutputArea');
+
+localSetBtn.addEventListener('click', () => {
+    const key = localKeyInput.value.trim();
+    const value = localValueInput.value;
+    if (key) {
+        localStorage.setItem(key, value);
+        localOutputArea.textContent = <code>LocalStorage: Set '${key}' to '${value}'</code>;
+        localKeyInput.value = ''; // Clear inputs after use
+        localValueInput.value = '';
+    } else {
+        localOutputArea.textContent = 'LocalStorage: Please enter a key.';
+    }
+});
+
+localGetBtn.addEventListener('click', () => {
+    const key = localKeyInput.value.trim();
+    if (key) {
+        const value = localStorage.getItem(key);
+        localOutputArea.textContent = value !== null
+            ? <code>LocalStorage: Value for '${key}' is '${value}'</code>
+            : <code>LocalStorage: Key '${key}' not found.</code>;
+    } else {
+        localOutputArea.textContent = 'LocalStorage: Please enter a key to get.';
+    }
+});
+
+localRemoveBtn.addEventListener('click', () => {
+    const key = localKeyInput.value.trim();
+    if (key) {
+        localStorage.removeItem(key);
+        localOutputArea.textContent = <code>LocalStorage: Removed key '${key}' (if it existed).</code>;
+        localKeyInput.value = '';
+    } else {
+        localOutputArea.textContent = 'LocalStorage: Please enter a key to remove.';
+    }
+});
+
+localClearBtn.addEventListener('click', () => {
+    localStorage.clear();
+    localOutputArea.textContent = 'LocalStorage: All items cleared.';
+});
+
+// --- SessionStorage Demo Logic (similar structure) ---
+const sessionKeyInput = document.getElementById('sessionKeyInput');
+const sessionValueInput = document.getElementById('sessionValueInput');
+const sessionSetBtn = document.getElementById('sessionSetBtn');
+const sessionGetBtn = document.getElementById('sessionGetBtn');
+const sessionRemoveBtn = document.getElementById('sessionRemoveBtn');
+const sessionClearBtn = document.getElementById('sessionClearBtn');
+const sessionOutputArea = document.getElementById('sessionOutputArea');
+
+sessionSetBtn.addEventListener('click', () => {
+    const key = sessionKeyInput.value.trim();
+    const value = sessionValueInput.value;
+    if (key) {
+        sessionStorage.setItem(key, value);
+        sessionOutputArea.textContent = <code>SessionStorage: Set '${key}' to '${value}'</code>;
+        sessionKeyInput.value = '';
+        sessionValueInput.value = '';
+    } else {
+         sessionOutputArea.textContent = 'SessionStorage: Please enter a key.';
+    }
+});
+
+sessionGetBtn.addEventListener('click', () => {
+     const key = sessionKeyInput.value.trim();
+    if (key) {
+        const value = sessionStorage.getItem(key);
+        sessionOutputArea.textContent = value !== null
+            ? <code>SessionStorage: Value for '${key}' is '${value}'</code>
+            : <code>SessionStorage: Key '${key}' not found.</code>;
+    } else {
+        sessionOutputArea.textContent = 'SessionStorage: Please enter a key to get.';
+    }
+});
+
+sessionRemoveBtn.addEventListener('click', () => {
+     const key = sessionKeyInput.value.trim();
+    if (key) {
+        sessionStorage.removeItem(key);
+        sessionOutputArea.textContent = <code>SessionStorage: Removed key '${key}' (if it existed).</code>;
+        sessionKeyInput.value = '';
+    } else {
+        sessionOutputArea.textContent = 'SessionStorage: Please enter a key to remove.';
+    }
+});
+
+sessionClearBtn.addEventListener('click', () => {
+    sessionStorage.clear();
+    sessionOutputArea.textContent = 'SessionStorage: All items cleared.';
+});
+
+// Optional: Display initial content on load if needed
+// localOutputArea.textContent = <code>LocalStorage: (Use buttons to interact)</code>;
+// sessionOutputArea.textContent = <code>SessionStorage: (Use buttons to interact)</code>;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. What is the main difference in persistence between
+            <code>localStorage</code> and <code>sessionStorage</code>?
+          </p>
+          <div class="answer">
+            <p>
+              <code>localStorage</code> data persists even after the browser is
+              closed and reopened. <code>sessionStorage</code> data only lasts
+              for the duration of the current browser session (until the
+              tab/window is closed).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What type of data can be stored directly as values in Web Storage
+            (localStorage/sessionStorage)?
+          </p>
+          <div class="answer">
+            <p>
+              Only strings can be stored directly as values. To store complex
+              data like objects or arrays, you need to convert them to JSON
+              strings first using <code>JSON.stringify()</code> before storing,
+              and parse them back using <code>JSON.parse()</code> when
+              retrieving.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. Which JavaScript method is used to store a new key-value pair in
+            <code>localStorage</code>?
+          </p>
+          <div class="answer">
+            <p><code>localStorage.setItem('yourKey', 'yourValue');</code></p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. How do you retrieve the value associated with the key
+            "userPreference" from <code>sessionStorage</code>?
+          </p>
+          <div class="answer">
+            <p>
+              <code
+                >const preference =
+                sessionStorage.getItem('userPreference');</code
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What method would you use to remove all data stored in
+            <code>localStorage</code> for the current website origin?
+          </p>
+          <div class="answer">
+            <p><code>localStorage.clear();</code></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_17_intro_js.html" class="toc-link">← Day 17</a>
+        <a href="day_19_responsive_design.html" class="toc-link"
+          >Go to Day 19 →</a
+        >
+      </div>
+    </div>
+
+    <script>
+      // --- LocalStorage Demo Logic ---
+      const localKeyInput = document.getElementById("localKeyInput");
+      const localValueInput = document.getElementById("localValueInput");
+      const localSetBtn = document.getElementById("localSetBtn");
+      const localGetBtn = document.getElementById("localGetBtn");
+      const localRemoveBtn = document.getElementById("localRemoveBtn");
+      const localClearBtn = document.getElementById("localClearBtn");
+      const localOutputArea = document.getElementById("localOutputArea");
+
+      // Check if elements exist before adding listeners
+      if (localSetBtn)
+        localSetBtn.addEventListener("click", () => {
+          const key = localKeyInput.value.trim();
+          const value = localValueInput.value;
+          if (key) {
+            try {
+              localStorage.setItem(key, value);
+              localOutputArea.textContent = <code>LocalStorage: Set '${key}' to '${value}'</code>;
+              localKeyInput.value = "";
+              localValueInput.value = "";
+            } catch (e) {
+              localOutputArea.textContent = <code>Error setting localStorage: ${e.message}</code>;
+            }
+          } else {
+            localOutputArea.textContent = "LocalStorage: Please enter a key.";
+          }
+        });
+
+      if (localGetBtn)
+        localGetBtn.addEventListener("click", () => {
+          /* ... Get logic */
+          const key = localKeyInput.value.trim();
+          if (key) {
+            try {
+              const value = localStorage.getItem(key);
+              localOutputArea.textContent =
+                value !== null
+                  ? <code>LocalStorage: Value for '${key}' is '${value}'</code>
+                  : <code>LocalStorage: Key '${key}' not found.</code>;
+            } catch (e) {
+              localOutputArea.textContent = <code>Error getting localStorage: ${e.message}</code>;
+            }
+          } else {
+            localOutputArea.textContent =
+              "LocalStorage: Please enter a key to get.";
+          }
+        });
+
+      if (localRemoveBtn)
+        localRemoveBtn.addEventListener("click", () => {
+          /* ... Remove logic */
+          const key = localKeyInput.value.trim();
+          if (key) {
+            try {
+              localStorage.removeItem(key);
+              localOutputArea.textContent = <code>LocalStorage: Removed key '${key}' (if it existed).</code>;
+              localKeyInput.value = "";
+            } catch (e) {
+              localOutputArea.textContent = <code>Error removing localStorage: ${e.message}</code>;
+            }
+          } else {
+            localOutputArea.textContent =
+              "LocalStorage: Please enter a key to remove.";
+          }
+        });
+
+      if (localClearBtn)
+        localClearBtn.addEventListener("click", () => {
+          /* ... Clear logic */
+          try {
+            localStorage.clear();
+            localOutputArea.textContent = "LocalStorage: All items cleared.";
+          } catch (e) {
+            localOutputArea.textContent = <code>Error clearing localStorage: ${e.message}</code>;
+          }
+        });
+
+      // --- SessionStorage Demo Logic ---
+      const sessionKeyInput = document.getElementById("sessionKeyInput");
+      const sessionValueInput = document.getElementById("sessionValueInput");
+      const sessionSetBtn = document.getElementById("sessionSetBtn");
+      const sessionGetBtn = document.getElementById("sessionGetBtn");
+      const sessionRemoveBtn = document.getElementById("sessionRemoveBtn");
+      const sessionClearBtn = document.getElementById("sessionClearBtn");
+      const sessionOutputArea = document.getElementById("sessionOutputArea");
+
+      if (sessionSetBtn)
+        sessionSetBtn.addEventListener("click", () => {
+          /* ... Set logic */
+          const key = sessionKeyInput.value.trim();
+          const value = sessionValueInput.value;
+          if (key) {
+            try {
+              sessionStorage.setItem(key, value);
+              sessionOutputArea.textContent = <code>SessionStorage: Set '${key}' to '${value}'</code>;
+              sessionKeyInput.value = "";
+              sessionValueInput.value = "";
+            } catch (e) {
+              sessionOutputArea.textContent = <code>Error setting sessionStorage: ${e.message}</code>;
+            }
+          } else {
+            sessionOutputArea.textContent =
+              "SessionStorage: Please enter a key.";
+          }
+        });
+      if (sessionGetBtn)
+        sessionGetBtn.addEventListener("click", () => {
+          /* ... Get logic */
+          const key = sessionKeyInput.value.trim();
+          if (key) {
+            try {
+              const value = sessionStorage.getItem(key);
+              sessionOutputArea.textContent =
+                value !== null
+                  ? <code>SessionStorage: Value for '${key}' is '${value}'</code>
+                  : <code>SessionStorage: Key '${key}' not found.</code>;
+            } catch (e) {
+              sessionOutputArea.textContent = <code>Error getting sessionStorage: ${e.message}</code>;
+            }
+          } else {
+            sessionOutputArea.textContent =
+              "SessionStorage: Please enter a key to get.";
+          }
+        });
+      if (sessionRemoveBtn)
+        sessionRemoveBtn.addEventListener("click", () => {
+          /* ... Remove logic */
+          const key = sessionKeyInput.value.trim();
+          if (key) {
+            try {
+              sessionStorage.removeItem(key);
+              sessionOutputArea.textContent = <code>SessionStorage: Removed key '${key}' (if it existed).</code>;
+              sessionKeyInput.value = "";
+            } catch (e) {
+              sessionOutputArea.textContent = <code>Error removing sessionStorage: ${e.message}</code>;
+            }
+          } else {
+            sessionOutputArea.textContent =
+              "SessionStorage: Please enter a key to remove.";
+          }
+        });
+      if (sessionClearBtn)
+        sessionClearBtn.addEventListener("click", () => {
+          /* ... Clear logic */
+          try {
+            sessionStorage.clear();
+            sessionOutputArea.textContent =
+              "SessionStorage: All items cleared.";
+          } catch (e) {
+            sessionOutputArea.textContent = <code>Error clearing sessionStorage: ${e.message}</code>;
+          }
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 6: Tables</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        /* background: #f3f4f6; */
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Basic Table Styling */
+      table.basic-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5rem;
+      }
+      table.basic-table th,
+      table.basic-table td {
+        border: 1px solid #cbd5e1;
+        padding: 0.75rem;
+        text-align: left;
+      }
+      table.basic-table th {
+        background-color: #e5e7eb;
+        font-weight: bold;
+      }
+      table.basic-table caption {
+        caption-side: bottom;
+        text-align: center;
+        margin-top: 0.5rem;
+        color: #6b7280;
+        font-style: italic;
+      }
+      thead {
+        background-color: #f3f4f6;
+      } /* Style thead */
+      tbody tr:nth-child(even) {
+        background-color: #f9fafb;
+      } /* Zebra striping */
+      tfoot {
+        background-color: #e5e7eb;
+        font-weight: bold;
+      } /* Style tfoot */
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 6: HTML Tables</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_5_links_and_images.html" class="toc-link">&larr; Day 5</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">Introduction to Tables</h2>
+      <p>
+        HTML tables are used to present data in a structured, two-dimensional
+        grid of rows and columns. They are ideal for displaying tabular data
+        like spreadsheets, statistics, schedules, or comparison charts.
+      </p>
+      <p
+        class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4"
+        role="alert"
+      >
+        <strong>Important Note:</strong> In the past, tables were often misused
+        for page layout. This is strongly discouraged now. Use CSS (specifically
+        techniques like Flexbox or Grid) for layout purposes. Use HTML tables
+        <strong>only</strong> for presenting actual tabular data.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Basic Table Structure</h2>
+      <p>The core tags for creating a table are:</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>&lt;table&gt;</strong></code
+          >: The main container for the entire table.
+        </li>
+        <li>
+          <code><strong>&lt;tr&gt;</strong></code> (Table Row): Defines a row
+          within the table.
+        </li>
+        <li>
+          <code><strong>&lt;td&gt;</strong></code> (Table Data): Defines a
+          standard data cell within a row. The content inside
+          <code>&lt;td&gt;</code> is the actual data.
+        </li>
+        <li>
+          <code><strong>&lt;th&gt;</strong></code> (Table Header): Defines a
+          header cell within a row. Header cells typically contain titles for
+          columns or rows. Browsers usually render <code>&lt;th&gt;</code> text
+          as bold and centered. Using <code>&lt;th&gt;</code> is important for
+          semantics and accessibility.
+        </li>
+      </ul>
+
+      <pre><code class="language-html">
+&lt;table class="basic-table"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;First Name&lt;/th&gt;
+    &lt;th&gt;Last Name&lt;/th&gt;
+    &lt;th&gt;Role&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Jane&lt;/td&gt;
+    &lt;td&gt;Doe&lt;/td&gt;
+    &lt;td&gt;Developer&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;John&lt;/td&gt;
+    &lt;td&gt;Smith&lt;/td&gt;
+    &lt;td&gt;Designer&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+        </code></pre>
+      <p><strong>Rendered Output (with basic styling applied):</strong></p>
+      <table class="basic-table">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+        </tr>
+        <tr>
+          <td>Jane</td>
+          <td>Doe</td>
+          <td>Developer</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Smith</td>
+          <td>Designer</td>
+        </tr>
+      </table>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Structuring Tables Further: <code>&lt;thead&gt;</code>,
+        <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>
+      </h2>
+      <p>
+        For more complex tables and better semantic structure (which also helps
+        with styling and accessibility), you can group rows into header, body,
+        and footer sections:
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>&lt;thead&gt;</strong></code
+          >: Groups the header content (usually the row(s) containing
+          <code>&lt;th&gt;</code> elements for column titles).
+        </li>
+        <li>
+          <code><strong>&lt;tbody&gt;</strong></code
+          >: Groups the main body content (the data rows). You can have multiple
+          <code>&lt;tbody&gt;</code> elements in a table to group rows
+          logically.
+        </li>
+        <li>
+          <code><strong>&lt;tfoot&gt;</strong></code
+          >: Groups the footer content (e.g., summary rows or totals). Note: A
+          <code>&lt;tfoot&gt;</code> must appear after
+          <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> in the HTML
+          structure, although some older practices placed it differently. The
+          browser will render it at the bottom regardless.
+        </li>
+      </ul>
+      <p>
+        Using these elements doesn't change the basic visual layout much by
+        default, but it provides structure that browsers, assistive
+        technologies, and CSS can use.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Spanning Rows and Columns: <code>colspan</code> and <code>rowspan</code>
+      </h2>
+      <p>Sometimes, a cell needs to extend across multiple columns or rows.</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>colspan="number"</strong></code
+          >: Attribute added to a <code>&lt;th&gt;</code> or
+          <code>&lt;td&gt;</code>. Makes the cell span horizontally across the
+          specified <code>number</code> of columns.
+        </li>
+        <li>
+          <code><strong>rowspan="number"</strong></code
+          >: Attribute added to a <code>&lt;th&gt;</code> or
+          <code>&lt;td&gt;</code>. Makes the cell span vertically across the
+          specified <code>number</code> of rows.
+        </li>
+      </ul>
+      <p>
+        When using these, you need to adjust the number of cells in the affected
+        rows/columns accordingly.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Table Caption (<code>&lt;caption&gt;</code>)
+      </h2>
+      <p>
+        The <code><strong>&lt;caption&gt;</strong></code> tag provides a title
+        or description for the table. It should be the first child element
+        inside the <code>&lt;table&gt;</code> tag. Captions are important for
+        accessibility, helping users understand the table's content without
+        having to read through the cells.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>
+        Example 1: Table with <code>&lt;thead&gt;</code>,
+        <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, and
+        <code>&lt;caption&gt;</code>
+      </h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Structured Table&lt;/title&gt;
+    &lt;!-- Link to basic table CSS from Day 6 page for rendering --&gt;
+    &lt;link href="day_6_tables.css" rel="stylesheet"&gt; &lt;!-- Assume basic styling in this file --&gt;
+    &lt;style&gt;
+        /* Basic Table Styling Copied Here for Demo */
+        table.basic-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+        table.basic-table th, table.basic-table td { border: 1px solid #cbd5e1; padding: 0.75rem; text-align: left; }
+        table.basic-table th { background-color: #e5e7eb; font-weight: bold; }
+        table.basic-table caption { caption-side: top; text-align: center; margin-bottom: 0.5rem; color: #1e40af; font-weight: bold; font-size: 1.1em; }
+        thead { background-color: #f3f4f6; } /* Style thead */
+        tbody tr:nth-child(even) { background-color: #f9fafb; } /* Zebra striping */
+        tfoot { background-color: #e2e8f0; font-weight: bold; text-align: right; } /* Style tfoot */
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Monthly Expenses&lt;/h1&gt;
+    &lt;table class="basic-table"&gt;
+        &lt;caption&gt;Summary of Expenses for January&lt;/caption&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Category&lt;/th&gt;
+                &lt;th&gt;Item&lt;/th&gt;
+                &lt;th&gt;Amount&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Utilities&lt;/td&gt;
+                &lt;td&gt;Electricity&lt;/td&gt;
+                &lt;td&gt;$75.00&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Utilities&lt;/td&gt;
+                &lt;td&gt;Internet&lt;/td&gt;
+                &lt;td&gt;$60.00&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Food&lt;/td&gt;
+                &lt;td&gt;Groceries&lt;/td&gt;
+                &lt;td&gt;$350.00&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+        &lt;tfoot&gt;
+            &lt;tr&gt;
+                &lt;td colspan="2"&gt;Total Expenses:&lt;/td&gt;
+                &lt;td&gt;$485.00&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tfoot&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (with basic styling):</strong></p>
+      <table class="basic-table">
+        <caption
+          style="
+            caption-side: top;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
+            font-weight: bold;
+            font-size: 1.1em;
+          "
+        >
+          Summary of Expenses for January
+        </caption>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Item</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Utilities</td>
+            <td>Electricity</td>
+            <td>$75.00</td>
+          </tr>
+          <tr>
+            <td>Utilities</td>
+            <td>Internet</td>
+            <td>$60.00</td>
+          </tr>
+          <tr>
+            <td>Food</td>
+            <td>Groceries</td>
+            <td>$350.00</td>
+          </tr>
+        </tbody>
+        <tfoot
+          style="
+            background-color: #e2e8f0;
+            font-weight: bold;
+            text-align: right;
+          "
+        >
+          <tr>
+            <td colspan="2">Total Expenses:</td>
+            <td>$485.00</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <h3>Example 2: Using <code>colspan</code></h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Colspan Example&lt;/title&gt;
+     &lt;style&gt; /* Basic Table Styling */ table.basic-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; } table.basic-table th, table.basic-table td { border: 1px solid #cbd5e1; padding: 0.75rem; text-align: left; } table.basic-table th { background-color: #e5e7eb; font-weight: bold; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Item Inventory&lt;/h1&gt;
+    &lt;table class="basic-table"&gt;
+        &lt;tr&gt;
+            &lt;th colspan="2"&gt;Item Details&lt;/th&gt; &lt;!-- Spans 2 columns --&gt;
+            &lt;th&gt;Quantity&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Gadget&lt;/td&gt;
+            &lt;td&gt;Model A&lt;/td&gt;
+            &lt;td&gt;15&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Widget&lt;/td&gt;
+            &lt;td&gt;Type X&lt;/td&gt;
+            &lt;td&gt;23&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (with basic styling):</strong></p>
+      <table class="basic-table">
+        <tr>
+          <th colspan="2">Item Details</th>
+          <th>Quantity</th>
+        </tr>
+        <tr>
+          <td>Gadget</td>
+          <td>Model A</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>Widget</td>
+          <td>Type X</td>
+          <td>23</td>
+        </tr>
+      </table>
+
+      <h3>Example 3: Using <code>rowspan</code></h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Rowspan Example&lt;/title&gt;
+     &lt;style&gt; /* Basic Table Styling */ table.basic-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; } table.basic-table th, table.basic-table td { border: 1px solid #cbd5e1; padding: 0.75rem; text-align: left; vertical-align: top; } table.basic-table th { background-color: #e5e7eb; font-weight: bold; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Event Schedule&lt;/h1&gt;
+    &lt;table class="basic-table"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Time&lt;/th&gt;
+            &lt;th&gt;Activity&lt;/th&gt;
+            &lt;th&gt;Location&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;9:00 AM&lt;/td&gt; &lt;!-- Spans 2 rows --&gt;
+            &lt;td&gt;Registration&lt;/td&gt;
+            &lt;td&gt;Lobby&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;!-- No time cell needed here (spanned by above) --&gt;
+            &lt;td&gt;Welcome Coffee&lt;/td&gt;
+            &lt;td&gt;Lobby&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;10:00 AM&lt;/td&gt;
+            &lt;td&gt;Keynote Speech&lt;/td&gt;
+            &lt;td&gt;Main Hall&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (with basic styling):</strong></p>
+      <table class="basic-table">
+        <tr>
+          <th>Time</th>
+          <th>Activity</th>
+          <th>Location</th>
+        </tr>
+        <tr>
+          <td rowspan="2" style="vertical-align: top">9:00 AM</td>
+          <td>Registration</td>
+          <td>Lobby</td>
+        </tr>
+        <tr>
+          <td>Welcome Coffee</td>
+          <td>Lobby</td>
+        </tr>
+        <tr>
+          <td>10:00 AM</td>
+          <td>Keynote Speech</td>
+          <td>Main Hall</td>
+        </tr>
+      </table>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>1. What is the main purpose of using HTML tables?</p>
+          <div class="answer">
+            <p>
+              To display tabular data in a structured way using rows and
+              columns.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What do the <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, and
+            <code>&lt;td&gt;</code> tags represent?
+          </p>
+          <div class="answer">
+            <p>
+              <code>&lt;tr&gt;</code> represents a table row.<br /><code
+                >&lt;th&gt;</code
+              >
+              represents a table header cell (for titles).<br /><code
+                >&lt;td&gt;</code
+              >
+              represents a standard table data cell.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>3. What is the function of the <code>colspan</code> attribute?</p>
+          <div class="answer">
+            <p>
+              The <code>colspan</code> attribute, applied to a
+              <code>&lt;th&gt;</code> or <code>&lt;td&gt;</code>, makes that
+              cell span horizontally across a specified number of columns.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. Why is it recommended to use <code>&lt;thead&gt;</code>,
+            <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code>?
+          </p>
+          <div class="answer">
+            <p>
+              They provide semantic structure to the table, grouping header,
+              body, and footer rows. This improves accessibility, allows for
+              better styling with CSS, and helps browsers understand the table
+              structure (e.g., for printing table headers on each page).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What is the purpose of the <code>&lt;caption&gt;</code> tag in a
+            table?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>&lt;caption&gt;</code> tag provides a title or
+              description for the entire table, improving accessibility and
+              understanding of the table's content.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_5_links_and_images.html" class="toc-link">&larr; Day 5</a>
+        <a href="day_7_forms_part_1.html" class="toc-link"
+          >Go to Day 7 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

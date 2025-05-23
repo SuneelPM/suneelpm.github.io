@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 11: Audio and Video Elements</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Basic styling for media elements */
+      audio,
+      video {
+        display: block;
+        margin: 1rem 0;
+        max-width: 100%;
+        border: 1px solid #d1d5db;
+      }
+      video {
+        background-color: #000;
+      } /* Black background for video player */
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 11: Audio and Video Elements</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_10_html_entities.html" class="toc-link">&larr; Day 10</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">Embedding Multimedia</h2>
+      <p>
+        HTML5 introduced native support for embedding audio and video content
+        directly into web pages without requiring third-party plugins like Flash
+        (which is now deprecated). This is achieved using the
+        <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The <code>&lt;audio&gt;</code> Element
+      </h2>
+      <p>
+        The <code>&lt;audio&gt;</code> element is used to embed sound content in
+        documents. You can provide multiple audio sources using the
+        <code>&lt;source&gt;</code> element inside <code>&lt;audio&gt;</code>,
+        and the browser will use the first format it supports.
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">
+        Key Attributes for <code>&lt;audio&gt;</code>:
+      </h3>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>src</strong></code
+          >: Specifies the URL of the audio file (can be used directly on the
+          <code>&lt;audio&gt;</code> tag if only providing one source, but using
+          <code>&lt;source&gt;</code> is recommended for compatibility).
+        </li>
+        <li>
+          <code><strong>controls</strong></code
+          >: A boolean attribute. If present, the browser will display standard
+          audio controls (play/pause button, volume control, progress bar). This
+          is essential for user interaction.
+        </li>
+        <li>
+          <code><strong>autoplay</strong></code
+          >: A boolean attribute. If present, the audio will start playing
+          automatically as soon as it can. <strong>Note:</strong> Autoplay with
+          sound is often blocked by browsers or disliked by users; use with
+          caution, preferably muted.
+        </li>
+        <li>
+          <code><strong>loop</strong></code
+          >: A boolean attribute. If present, the audio will automatically loop
+          back to the beginning upon reaching the end.
+        </li>
+        <li>
+          <code><strong>muted</strong></code
+          >: A boolean attribute. If present, the audio output will be muted by
+          default.
+        </li>
+        <li>
+          <code><strong>preload</strong></code
+          >: Suggests how much of the audio file should be loaded when the page
+          loads. Values:
+          <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+            <li><code>none</code>: Don't preload the audio.</li>
+            <li>
+              <code>metadata</code>: Preload only metadata (like duration).
+            </li>
+            <li>
+              <code>auto</code> (Default): The browser can preload the entire
+              audio file.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;source&gt;</code> Element (within
+        <code>&lt;audio&gt;</code>):
+      </h3>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>src</strong></code
+          >: Specifies the URL of the audio source file.
+        </li>
+        <li>
+          <code><strong>type</strong></code
+          >: Specifies the MIME type of the audio format (e.g.,
+          <code>audio/mpeg</code> for MP3, <code>audio/ogg</code> for Ogg
+          Vorbis, <code>audio/wav</code> for WAV). Providing the type helps the
+          browser quickly determine if it can play the file without having to
+          download it first.
+        </li>
+      </ul>
+      <p>
+        Text content placed between the opening <code>&lt;audio&gt;</code> and
+        closing <code>&lt;/audio&gt;</code> tags (after any
+        <code>&lt;source&gt;</code> elements) will be displayed as fallback
+        content for browsers that do not support the
+        <code>&lt;audio&gt;</code> element.
+      </p>
+
+      <pre><code class="language-html">
+&lt;audio controls preload="metadata"&gt;
+  &lt;source src="audio/my-song.mp3" type="audio/mpeg"&gt;
+  &lt;source src="audio/my-song.ogg" type="audio/ogg"&gt;
+  Your browser does not support the audio element.
+  Please &lt;a href="audio/my-song.mp3"&gt;download the MP3&lt;/a&gt; instead.
+&lt;/audio&gt;
+        </code></pre>
+      <p>
+        (Note: For this to work, you need actual <code>my-song.mp3</code> and <code>my-song.ogg</code>
+        files in an <code>audio</code> subfolder).
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The <code>&lt;video&gt;</code> Element
+      </h2>
+      <p>
+        The <code>&lt;video&gt;</code> element is used to embed video content.
+        Similar to <code>&lt;audio&gt;</code>, it supports multiple sources via
+        the <code>&lt;source&gt;</code> element for cross-browser compatibility.
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">
+        Key Attributes for <code>&lt;video&gt;</code>:
+      </h3>
+      <p>
+        Many attributes are the same as for <code>&lt;audio&gt;</code>:
+        <code>src</code>, <code>controls</code>, <code>autoplay</code>,
+        <code>loop</code>, <code>muted</code>, <code>preload</code>.
+      </p>
+      <p>Additional common attributes:</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>width</strong></code
+          >: Sets the display width of the video player in pixels.
+        </li>
+        <li>
+          <code><strong>height</strong></code
+          >: Sets the display height of the video player in pixels. (It's
+          generally recommended to set only one dimension and let the browser
+          calculate the other to maintain aspect ratio, or better yet, use CSS
+          for responsive sizing).
+        </li>
+        <li>
+          <code><strong>poster</strong></code
+          >: Specifies the URL of an image to show while the video is
+          downloading or until the user hits the play button.
+        </li>
+        <li>
+          <code><strong>playsinline</strong></code
+          >: A boolean attribute primarily for mobile browsers (especially iOS
+          Safari) that allows the video to play within the element's playback
+          area instead of automatically entering fullscreen mode.
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;source&gt;</code> Element (within
+        <code>&lt;video&gt;</code>):
+      </h3>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>src</strong></code
+          >: Specifies the URL of the video source file.
+        </li>
+        <li>
+          <code><strong>type</strong></code
+          >: Specifies the MIME type of the video format (e.g.,
+          <code>video/mp4</code>, <code>video/webm</code>,
+          <code>video/ogg</code>). Often includes codec information for more
+          precision, e.g.,
+          <code>type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'</code>.
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3">
+        The <code>&lt;track&gt;</code> Element
+      </h3>
+      <p>
+        Used as a child of <code>&lt;audio&gt;</code> or
+        <code>&lt;video&gt;</code> to specify timed text tracks, such as
+        subtitles, captions, descriptions, chapters, or metadata. Requires a
+        WebVTT file (<code>.vtt</code>).
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>kind</strong></code
+          >: Type of track (<code>subtitles</code>, <code>captions</code>,
+          <code>descriptions</code>, <code>chapters</code>,
+          <code>metadata</code>).
+        </li>
+        <li>
+          <code><strong>src</strong></code
+          >: URL of the <code>.vtt</code> file.
+        </li>
+        <li>
+          <code><strong>srclang</strong></code
+          >: Language of the track text (e.g., "en", "es").
+        </li>
+        <li>
+          <code><strong>label</strong></code
+          >: A user-visible title for the track (e.g., "English Subtitles").
+        </li>
+        <li>
+          <code><strong>default</strong></code
+          >: Boolean attribute indicating the track should be enabled by
+          default.
+        </li>
+      </ul>
+
+      <pre><code class="language-html">
+&lt;video controls width="640" height="360" poster="images/video-poster.jpg" preload="metadata"&gt;
+  &lt;source src="videos/my-movie.mp4" type="video/mp4"&gt;
+  &lt;source src="videos/my-movie.webm" type="video/webm"&gt;
+
+  &lt;!-- Subtitles/Captions --&gt;
+  &lt;track kind="captions" src="captions/my-movie-en.vtt" srclang="en" label="English Captions" default&gt;
+  &lt;track kind="subtitles" src="subtitles/my-movie-es.vtt" srclang="es" label="Spanish Subtitles"&gt;
+
+  &lt;!-- Fallback Content --&gt;
+  Your browser does not support the video tag.
+  You can &lt;a href="videos/my-movie.mp4"&gt;download the MP4 video&lt;/a&gt;.
+&lt;/video&gt;
+        </code></pre>
+      <p>
+        (Requires <code>my-movie.mp4</code>, <code>my-movie.webm</code>, <code>video-poster.jpg</code>, and the
+        <code>.vtt</code> files in appropriate folders).
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Supported Media Formats</h2>
+      <p>
+        Browser support for different audio and video formats varies. The most
+        commonly supported formats across modern browsers are:
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <strong>Audio:</strong> MP3 (<code>audio/mpeg</code>), AAC
+          (<code>audio/aac</code>), Ogg Vorbis (<code>audio/ogg</code>), WAV
+          (<code>audio/wav</code>). MP3 has the widest support.
+        </li>
+        <li>
+          <strong>Video:</strong> MP4 (H.264 codec + AAC/MP3 audio,
+          <code>video/mp4</code>), WebM (VP8/VP9 codec + Vorbis/Opus audio,
+          <code>video/webm</code>), Ogg Theora (<code>video/ogg</code> - less
+          common now). MP4 (H.264) is the most widely supported.
+        </li>
+      </ul>
+      <p>
+        Providing sources in both MP4 and WebM (for video) or MP3 and Ogg (for
+        audio) generally ensures good compatibility across major browsers.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Simple Audio Player</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Simple Audio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Listen to our Podcast Snippet&lt;/h1&gt;
+    &lt;audio controls&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" type="audio/mpeg"&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.ogg" type="audio/ogg"&gt;
+      Your browser does not support the audio element.
+    &lt;/audio&gt;
+    &lt;p&gt;(Audio source: MDN examples)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (Conceptual):</strong></p>
+      <audio controls>
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+          type="audio/mpeg"
+        />
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.ogg"
+          type="audio/ogg"
+        />
+        Your browser does not support the audio element.
+      </audio>
+
+      <h3>Example 2: Video Player with Poster and Controls</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Video Player&lt;/title&gt;
+    &lt;style&gt; video { max-width: 100%; height: auto; border: 1px solid #ccc; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Watch this Short Clip&lt;/h1&gt;
+    &lt;video controls width="720" poster="https://via.placeholder.com/720x400.png?text=Video+Poster" preload="metadata"&gt;
+         &lt;!-- Example using video from MDN --&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm"&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4"&gt;
+        Sorry, your browser doesn't support embedded videos.
+    &lt;/video&gt;
+    &lt;p&gt;(Video source: MDN examples. Poster is a placeholder.)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <p><strong>Rendered Output (Conceptual):</strong></p>
+      <video
+        controls
+        width="720"
+        poster="https://via.placeholder.com/720x400.png?text=Video+Poster"
+        preload="metadata"
+        style="max-width: 100%; height: auto; border: 1px solid #ccc"
+      >
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+          type="video/webm"
+        />
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+          type="video/mp4"
+        />
+        Sorry, your browser doesn't support embedded videos.
+      </video>
+
+      <h3>Example 3: Audio with Loop and Muted Autoplay</h3>
+      <p>
+        (Note: Autoplay behavior can be inconsistent and often requires the
+        <code>muted</code> attribute to work in modern browsers).
+      </p>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Background Audio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Page with Background Ambiance&lt;/h1&gt;
+    &lt;p&gt;This page has looping background audio (autoplayed muted). Add controls to unmute.&lt;/p&gt;
+
+    &lt;audio loop autoplay muted controls&gt; &lt;!-- Added controls so user can unmute --&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" type="audio/mpeg"&gt;
+        &lt;source src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.ogg" type="audio/ogg"&gt;
+        Audio not supported.
+    &lt;/audio&gt;
+     &lt;p&gt;(Audio source: MDN examples)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>1. Which HTML element is used to embed video content?</p>
+          <div class="answer">
+            <p>The <code>&lt;video&gt;</code> element.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What is the purpose of the <code>controls</code> attribute on
+            <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>controls</code> attribute tells the browser to display
+              the default user interface controls for the media (play/pause,
+              volume, seeking, etc.).
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. Why is it recommended to use the
+            <code>&lt;source&gt;</code> element inside
+            <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code> instead of
+            just the <code>src</code> attribute on the parent element?
+          </p>
+          <div class="answer">
+            <p>
+              Using multiple <code>&lt;source&gt;</code> elements allows you to
+              provide the same media content in different file formats. The
+              browser will then choose the first format it supports, maximizing
+              compatibility across different browsers and devices.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. What does the <code>poster</code> attribute on a
+            <code>&lt;video&gt;</code> element do?
+          </p>
+          <div class="answer">
+            <p>
+              It specifies the URL of an image that the browser displays while
+              the video is loading or before the user initiates playback.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What element is used to add subtitles or captions to a video, and
+            what file format does it typically use?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>&lt;track&gt;</code> element is used. It typically
+              references a WebVTT file (<code>.vtt</code>) via its
+              <code>src</code> attribute.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_10_html_entities.html" class="toc-link">&larr; Day 10</a>
+        <a href="day_12_canvas_intro.html" class="toc-link"
+          >Go to Day 12 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

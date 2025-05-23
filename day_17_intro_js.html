@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 17: Introduction to JavaScript</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      pre[class*="language-"] code {
+        background: transparent;
+        padding: 0;
+        border: none;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Example styles for JS Demo */
+      #demo-paragraph {
+        color: green;
+        font-weight: bold;
+        border: 1px solid green;
+        padding: 10px;
+      }
+      button.js-button {
+        background-color: orange;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      button.js-button:hover {
+        background-color: darkorange;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">
+        Day 17: Introduction to JavaScript
+      </h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_16_intro_css.html" class="toc-link">← Day 16</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What is JavaScript?</h2>
+      <p>
+        JavaScript (often abbreviated as JS) is a high-level, interpreted
+        programming language primarily used to create dynamic and interactive
+        content on web pages. While HTML provides the structure and CSS handles
+        the presentation, JavaScript adds the <strong>behavior</strong> and
+        interactivity.
+      </p>
+      <p>With JavaScript, you can:</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          Modify HTML content and attributes dynamically after the page has
+          loaded.
+        </li>
+        <li>Change CSS styles dynamically.</li>
+        <li>
+          React to user events (like clicks, mouse movements, key presses).
+        </li>
+        <li>Validate user input in forms before submitting to a server.</li>
+        <li>Perform calculations and manipulate data.</li>
+        <li>
+          Make asynchronous requests to servers to fetch or send data without
+          reloading the entire page (techniques like AJAX).
+        </li>
+        <li>Create animations, games, and complex user interfaces.</li>
+      </ul>
+      <p>
+        JavaScript runs directly in the user's web browser (client-side),
+        although it can also be used on servers (e.g., Node.js).
+      </p>
+      <p
+        class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4"
+        role="alert"
+      >
+        <strong>Focus of this Lesson:</strong> Like the CSS lesson, this is an
+        HTML course. We will focus on <strong>what JavaScript is</strong> in the
+        context of web pages and
+        <strong>how to include it in your HTML</strong>, not on teaching the
+        JavaScript language itself.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The Document Object Model (DOM)
+      </h2>
+      <p>
+        To interact with HTML and CSS, JavaScript uses the
+        <strong>Document Object Model (DOM)</strong>. The DOM is a programming
+        interface provided by the browser that represents the structure of an
+        HTML (or XML) document as a tree of objects.
+      </p>
+      <p>
+        Each HTML element (like <code>&lt;p&gt;</code>,
+        <code>&lt;div&gt;</code>, <code>&lt;img&gt;</code>) becomes an object
+        (or "node") in this tree. JavaScript can access these objects to:
+      </p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>Find specific elements (e.g., using their ID or class).</li>
+        <li>
+          Read or change the content of elements (e.g., change the text inside a
+          paragraph).
+        </li>
+        <li>
+          Read or change the attributes of elements (e.g., change the
+          <code>src</code> of an image).
+        </li>
+        <li>Read or change the CSS styles applied to elements.</li>
+        <li>Add or remove elements from the page.</li>
+        <li>Respond to events happening on elements (like clicks).</li>
+      </ul>
+      <p>
+        Manipulating the DOM is the core way JavaScript makes web pages dynamic.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Ways to Add JavaScript to HTML
+      </h2>
+      <p>
+        Similar to CSS, there are three main ways to include JavaScript in your
+        HTML:
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">
+        1. External JavaScript File (Recommended)
+      </h3>
+      <p>
+        This is the <strong>most common and recommended</strong> method. You
+        write your JavaScript code in separate files with a
+        <code>.js</code> extension (e.g., <code>script.js</code>). You then link
+        this file to your HTML document using the
+        <code><strong>&lt;script&gt;</strong></code> tag, usually placed just
+        before the closing <code><strong>&lt;/body&gt;</strong></code> tag.
+      </p>
+      <p>
+        <strong>Why before <code>&lt;/body&gt;</code>?</strong> Placing scripts
+        at the end of the body allows the HTML content (the DOM) to be parsed
+        and loaded first. This ensures that JavaScript code attempting to
+        manipulate HTML elements will find those elements already present in the
+        DOM. If scripts are placed in the <code>&lt;head&gt;</code> without
+        special attributes, they can block the rendering of the page while they
+        download and execute.
+      </p>
+      <p><strong>Advantages:</strong></p>
+      <ul class="list-disc list-inside space-y-1 mb-2">
+        <li>Keeps HTML clean and focused on structure/content.</li>
+        <li>Allows reusing the same script across multiple HTML pages.</li>
+        <li>Easier code organization and maintenance.</li>
+        <li>
+          Browsers can cache the <code>.js</code> file, improving performance.
+        </li>
+      </ul>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;External JS Example&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt; &lt;!-- Link CSS --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 id="main-heading"&gt;Hello World!&lt;/h1&gt;
+    &lt;button id="myButton"&gt;Click Me&lt;/button&gt;
+
+    &lt;!-- Link external JS file just before closing body tag --&gt;
+    &lt;script src="js/script.js"&gt;&lt;/script&gt;
+    &lt;!--
+        src="js/script.js": Specifies the path to your JS file.
+                        (Assumes script.js is in a 'js' subfolder)
+    --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      <pre><code class="language-javascript">
+// In your JS file (e.g., js/script.js)
+// Basic DOM manipulation example
+
+// Find the button element by its ID
+const button = document.getElementById('myButton');
+// Find the heading element
+const heading = document.getElementById('main-heading');
+
+// Add an event listener to the button
+// When the button is clicked, run the function
+button.addEventListener('click', function() {
+  // Change the text content of the heading
+  heading.textContent = 'Button Was Clicked!';
+  // Log a message to the browser's developer console
+  console.log('Heading text changed.');
+});
+
+console.log('External script loaded.'); // Message in console on load
+        </code></pre>
+      <p>
+        (To see <code>console.log</code> messages, open your browser's Developer
+        Tools (F12) and check the Console tab.)
+      </p>
+
+      <h3 class="text-xl font-medium mb-3">2. Internal JavaScript</h3>
+      <p>
+        You can embed JavaScript code directly within the HTML document using
+        the <code><strong>&lt;script&gt;</strong></code> tag, typically placed
+        just before the closing <code>&lt;/body&gt;</code> tag (for the same
+        reasons as linking external scripts there).
+      </p>
+      <p>
+        <strong>Advantages:</strong> Useful for small scripts specific to a
+        single page.
+      </p>
+      <p>
+        <strong>Disadvantages:</strong> Mixes behavior with structure; code
+        cannot be easily reused across pages; cannot be cached separately.
+      </p>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Internal JS Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p id="status"&gt;Status: Waiting...&lt;/p&gt;
+
+    &lt;script&gt;
+        // JavaScript code directly inside the script tag
+        const statusParagraph = document.getElementById('status');
+        statusParagraph.textContent = 'Status: Script Executed!';
+        statusParagraph.style.color = 'blue'; // Change style via JS
+
+        console.log('Internal script ran.');
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3 class="text-xl font-medium mb-3">
+        3. Inline JavaScript (Use Sparingly / Avoid for Complex Logic)
+      </h3>
+      <p>
+        JavaScript code can be placed directly within HTML event handler
+        attributes, such as <code>onclick</code>, <code>onmouseover</code>,
+        <code>onload</code>, etc.
+      </p>
+      <p>
+        <strong>Advantages:</strong> Can seem simple for very basic
+        interactions.
+      </p>
+      <p>
+        <strong>Disadvantages:</strong> Strongly discouraged for anything beyond
+        trivial code. It tightly couples behavior with HTML structure, makes
+        code hard to read and debug, pollutes the HTML, and is generally
+        considered poor practice for maintainability and separation of concerns.
+      </p>
+      <pre><code class="language-markup">
+&lt;!-- Example of inline JavaScript (Avoid for complex logic) --&gt;
+&lt;button onclick="alert('Button Clicked!'); this.textContent='Clicked!'; this.style.backgroundColor='grey';"&gt;
+  Click Me (Inline JS)
+&lt;/button&gt;
+        </code></pre>
+      <p>
+        Modern JavaScript development heavily favors using external files and
+        techniques like <code>addEventListener</code> (shown in the external file example)
+        over inline event handlers.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Defer and Async Attributes</h2>
+      <p>
+        When using the <code>&lt;script&gt;</code> tag with an external file
+        (<code>src</code> attribute), you can modify how the script is
+        downloaded and executed using the <code>defer</code> and
+        <code>async</code> boolean attributes:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <code
+            ><strong><script src="script.js"></script></strong
+          ></code>
+          (No attribute, often in <code>&lt;head&gt;</code>): HTML parsing
+          stops, script is downloaded and executed, then HTML parsing resumes.
+          Can block page rendering.
+        </li>
+        <li>
+          <code
+            ><strong><script async src="script.js"></script></strong
+          ></code>
+          (Usually in <code>&lt;head&gt;</code>): Script is downloaded
+          asynchronously (doesn't block HTML parsing). Once downloaded, HTML
+          parsing stops, and the script executes. Scripts might execute out of
+          order if multiple <code>async</code> scripts exist. Good for independent scripts
+          (like analytics).
+        </li>
+        <li>
+          <code
+            ><strong><script defer src="script.js"></script></strong
+          ></code>
+          (Usually in <code>&lt;head&gt;</code>): Script is downloaded
+          asynchronously (doesn't block HTML parsing). The script is guaranteed
+          to execute only *after* the HTML parsing is complete, but *before* the
+          <code>DOMContentLoaded</code> event. Scripts execute in the order they appear in
+          the HTML.
+          <strong
+            >Often a good choice for scripts that need the full DOM.</strong
+          >
+        </li>
+        <li>
+          Placing scripts just before <code>&lt;/body&gt;</code> (without
+          <code>defer</code> or <code>async</code>) achieves a similar result to <code>defer</code> in terms of
+          execution timing relative to DOM parsing.
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Changing Text Content on Button Click (External JS)</h3>
+      <p>HTML (<code>index.html</code>):</p>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;&lt;title&gt;JS Click Event&lt;/title&gt;&lt;/head&gt;&lt;body&gt;
+    &lt;h1 id="message"&gt;Original Message&lt;/h1&gt;
+    &lt;button id="changeButton" class="js-button"&gt;Change Text&lt;/button&gt;
+    &lt;script src="app1.js" defer&gt;&lt;/script&gt; &lt;!-- Use defer if script is in head --&gt;
+&lt;/body&gt;&lt;/html&gt;
+        </code></pre>
+      <p>JavaScript (<code>app1.js</code>):</p>
+      <pre><code class="language-javascript">
+const messageHeading = document.getElementById('message');
+const changeBtn = document.getElementById('changeButton');
+
+changeBtn.addEventListener('click', () => {
+    messageHeading.textContent = 'Text Changed by JavaScript!';
+});
+        </code></pre>
+
+      <h3>Example 2: Showing/Hiding an Element (Internal JS)</h3>
+      <style>
+        #secret-box {
+          display: none;
+          border: 2px dashed blue;
+          padding: 10px;
+          margin-top: 10px;
+          background: lightcyan;
+        }
+      </style>
+      <div id="secret-box">This is a hidden element!</div>
+      <button id="toggleButton" class="js-button">Show/Hide Element</button>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;&lt;title&gt;JS Toggle&lt;/title&gt;
+&lt;style&gt;
+    #secret-box { display: none; border: 2px dashed blue; padding: 10px; margin-top: 10px; background: lightcyan; }
+    button { margin-top: 10px; padding: 5px 10px; }
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+    &lt;h1&gt;Toggle Visibility&lt;/h1&gt;
+    &lt;div id="secret-box"&gt;This is a hidden element!&lt;/div&gt;
+    &lt;button id="toggleButton"&gt;Show/Hide Element&lt;/button&gt;
+
+    &lt;script&gt;
+        const box = document.getElementById('secret-box');
+        const toggleBtn = document.getElementById('toggleButton');
+        let isVisible = false;
+
+        toggleBtn.addEventListener('click', () => {
+            if (isVisible) {
+                box.style.display = 'none';
+                toggleBtn.textContent = 'Show Element';
+            } else {
+                box.style.display = 'block';
+                toggleBtn.textContent = 'Hide Element';
+            }
+            isVisible = !isVisible; // Flip the visibility state
+        });
+    &lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Simple Inline JS Alert (Demonstration)</h3>
+      <button
+        class="js-button"
+        onclick="alert('Inline JavaScript says hello!');"
+      >
+        Click (Inline Alert)
+      </button>
+      <pre><code class="language-markup">
+&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;&lt;title&gt;Inline JS&lt;/title&gt;&lt;/head&gt;&lt;body&gt;
+    &lt;h1&gt;Inline JS Demo&lt;/h1&gt;
+    &lt;!-- Avoid this for more than simple alerts/actions --&gt;
+    &lt;button onclick="alert('Inline JavaScript says hello!');"&gt;Click (Inline Alert)&lt;/button&gt;
+&lt;/body&gt;&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>1. What is the primary role of JavaScript in web development?</p>
+          <div class="answer">
+            <p>
+              JavaScript adds behavior and interactivity to web pages, allowing
+              developers to manipulate HTML content and CSS styles, respond to
+              user events, validate forms, communicate with servers, and more.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>2. What is the DOM (Document Object Model)?</p>
+          <div class="answer">
+            <p>
+              The DOM is a browser's programming interface for an HTML document.
+              It represents the page structure as a tree of objects (nodes),
+              allowing JavaScript to access and manipulate the content,
+              structure, and style of elements.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. What is the recommended way to include JavaScript in an HTML
+            file, and where is it typically placed?
+          </p>
+          <div class="answer">
+            <p>
+              The recommended way is using an external JavaScript file
+              (<code>.js</code>) linked via the <code>&lt;script&gt;</code> tag
+              with the <code>src</code> attribute. This tag is typically placed
+              just before the closing <code>&lt;/body&gt;</code> tag, or in the
+              <code>&lt;head&gt;</code> with the <code>defer</code> attribute.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. What is the difference between the <code>defer</code> and
+            <code>async</code> attributes on a <code>&lt;script&gt;</code> tag?
+          </p>
+          <div class="answer">
+            <p>
+              Both download the script without blocking HTML parsing.
+              <code>async</code> scripts execute as soon as they finish
+              downloading (potentially out of order and blocking parsing during
+              execution). <code>defer</code> scripts execute only after HTML
+              parsing is complete and in the order they appear in the HTML.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. Why is it generally discouraged to use inline JavaScript (e.g.,
+            <code>onclick="..."</code>) extensively?
+          </p>
+          <div class="answer">
+            <p>
+              It mixes behavior with structure, makes code harder to read,
+              debug, and maintain, violates the principle of separation of
+              concerns, and doesn't scale well for complex applications.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_16_intro_css.html" class="toc-link">← Day 16</a>
+        <a href="day_18_html_apis.html" class="toc-link">Go to Day 18 →</a>
+      </div>
+    </div>
+
+    <script>
+      const box = document.getElementById("secret-box");
+      const toggleBtn = document.getElementById("toggleButton");
+      if (box && toggleBtn) {
+        let isVisible = box.style.display === "block"; // Check initial state if set inline
+
+        toggleBtn.addEventListener("click", () => {
+          if (isVisible) {
+            box.style.display = "none";
+            toggleBtn.textContent = "Show Element";
+          } else {
+            box.style.display = "block";
+            toggleBtn.textContent = "Hide Element";
+          }
+          isVisible = !isVisible;
+        });
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll(); // Highlight code blocks
+    </script>
+  </body>
+</html>

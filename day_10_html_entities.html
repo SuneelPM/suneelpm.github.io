@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 10: HTML Entities & Symbols</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+        color: #c026d3;
+        font-weight: bold;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Table for entities */
+      table.entity-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+      table.entity-table th,
+      table.entity-table td {
+        border: 1px solid #d1d5db;
+        padding: 0.6rem;
+        text-align: left;
+      }
+      table.entity-table th {
+        background-color: #e5e7eb;
+        font-weight: bold;
+      }
+      table.entity-table td:first-child {
+        text-align: center;
+        font-size: 1.5em;
+      } /* Center the symbol */
+      table.entity-table td code {
+        background-color: #f3f4f6;
+        padding: 0.2em 0.4em;
+        border: 1px solid #d1d5db;
+        border-radius: 3px;
+        color: #be185d;
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">Day 10: HTML Entities & Symbols</h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_9_semantic_html.html" class="toc-link">&larr; Day 9</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What are HTML Entities?</h2>
+      <p>
+        HTML entities are special codes used to represent reserved characters or
+        characters that are difficult or impossible to type directly using a
+        standard keyboard.
+      </p>
+      <p>
+        <strong>Reserved Characters:</strong> Some characters have special
+        meaning in HTML itself. For example, the less-than sign
+        (<code>&lt;</code>) is used to start HTML tags. If you want to actually
+        display a less-than sign as text on your webpage, you need to use its
+        entity representation. Otherwise, the browser might interpret it as the
+        start of a tag, leading to errors or unexpected rendering.
+      </p>
+      <p>
+        <strong>Other Characters:</strong> Entities are also used for symbols
+        that aren't typically on keyboards, such as copyright symbols (©),
+        registered trademark symbols (®), currency symbols (€, £, ¥),
+        mathematical symbols (∑, ∞), and accented characters from various
+        languages.
+      </p>
+      <p>
+        While modern character encodings like UTF-8 (which we specified with
+        <code>&lt;meta charset="UTF-8"&gt;</code>) allow you to directly type
+        many of these symbols into your HTML code, using entities is still
+        essential for reserved characters and can sometimes be more reliable or
+        readable for less common symbols.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Entity Syntax</h2>
+      <p>HTML entities typically have two forms:</p>
+      <ol class="list-decimal list-inside mb-4 space-y-2">
+        <li>
+          <strong>Entity Name:</strong> Starts with an ampersand
+          (<code>&amp;</code>), followed by a predefined name, and ends with a
+          semicolon (<code>;</code>). These are generally easier to remember.
+          <br />Example: <code>&amp;lt;</code> represents <code>&lt;</code>.
+        </li>
+        <li>
+          <strong>Entity Number (Decimal or Hexadecimal):</strong> Starts with
+          an ampersand (<code>&amp;</code>) and a hash sign (<code>#</code>),
+          followed by a numeric code (either decimal or hexadecimal starting
+          with 'x'), and ends with a semicolon (<code>;</code>). Every character
+          in the Unicode standard has a unique number. <br />Example (Decimal):
+          <code>&amp;#60;</code> represents <code>&lt;</code>. <br />Example
+          (Hexadecimal): <code>&amp;#x3C;</code> represents <code>&lt;</code>.
+        </li>
+      </ol>
+      <p>
+        Both forms achieve the same result. Entity names are often preferred for
+        common entities due to readability, but numeric codes can represent any
+        Unicode character, even those without a predefined name.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Commonly Used HTML Entities</h2>
+      <p>Here are some essential and frequently used entities:</p>
+      <table class="entity-table">
+        <thead>
+          <tr>
+            <th>Result</th>
+            <th>Description</th>
+            <th>Entity Name</th>
+            <th>Entity Number (Dec)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td>Non-breaking space (prevents line breaks between words)</td>
+            <td><code>&amp;nbsp;</code></td>
+            <td><code>&amp;#160;</code></td>
+          </tr>
+          <tr>
+            <td>&lt;</td>
+            <td>Less than sign</td>
+            <td><code>&amp;lt;</code></td>
+            <td><code>&amp;#60;</code></td>
+          </tr>
+          <tr>
+            <td>&gt;</td>
+            <td>Greater than sign</td>
+            <td><code>&amp;gt;</code></td>
+            <td><code>&amp;#62;</code></td>
+          </tr>
+          <tr>
+            <td>&amp;</td>
+            <td>Ampersand</td>
+            <td><code>&amp;amp;</code></td>
+            <td><code>&amp;#38;</code></td>
+          </tr>
+          <tr>
+            <td>"</td>
+            <td>Double quotation mark</td>
+            <td><code>&amp;quot;</code></td>
+            <td><code>&amp;#34;</code></td>
+          </tr>
+          <tr>
+            <td>'</td>
+            <td>Single quotation mark (apostrophe)</td>
+            <td>
+              <code>&amp;apos;</code> (less common, use
+              <code>&amp;#39;</code> for better compatibility)
+            </td>
+            <td><code>&amp;#39;</code></td>
+          </tr>
+          <tr>
+            <td>©</td>
+            <td>Copyright symbol</td>
+            <td><code>&amp;copy;</code></td>
+            <td><code>&amp;#169;</code></td>
+          </tr>
+          <tr>
+            <td>®</td>
+            <td>Registered trademark symbol</td>
+            <td><code>&amp;reg;</code></td>
+            <td><code>&amp;#174;</code></td>
+          </tr>
+          <tr>
+            <td>™</td>
+            <td>Trademark symbol</td>
+            <td><code>&amp;trade;</code></td>
+            <td><code>&amp;#8482;</code></td>
+          </tr>
+          <tr>
+            <td>€</td>
+            <td>Euro sign</td>
+            <td><code>&amp;euro;</code></td>
+            <td><code>&amp;#8364;</code></td>
+          </tr>
+          <tr>
+            <td>£</td>
+            <td>Pound sign</td>
+            <td><code>&amp;pound;</code></td>
+            <td><code>&amp;#163;</code></td>
+          </tr>
+          <tr>
+            <td>¥</td>
+            <td>Yen sign</td>
+            <td><code>&amp;yen;</code></td>
+            <td><code>&amp;#165;</code></td>
+          </tr>
+          <tr>
+            <td>→</td>
+            <td>Right arrow</td>
+            <td><code>&amp;rarr;</code></td>
+            <td><code>&amp;#8594;</code></td>
+          </tr>
+          <tr>
+            <td>←</td>
+            <td>Left arrow</td>
+            <td><code>&amp;larr;</code></td>
+            <td><code>&amp;#8592;</code></td>
+          </tr>
+          <tr>
+            <td>↑</td>
+            <td>Up arrow</td>
+            <td><code>&amp;uarr;</code></td>
+            <td><code>&amp;#8593;</code></td>
+          </tr>
+          <tr>
+            <td>↓</td>
+            <td>Down arrow</td>
+            <td><code>&amp;darr;</code></td>
+            <td><code>&amp;#8595;</code></td>
+          </tr>
+          <tr>
+            <td>&hearts;</td>
+            <td>Heart symbol</td>
+            <td><code>&amp;hearts;</code></td>
+            <td><code>&amp;#9829;</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Many, many more entities exist for various symbols, mathematical
+        operators, Greek letters, etc. You can find comprehensive lists online
+        by searching for "HTML entities list".
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        Using Non-Breaking Spaces (<code>&amp;nbsp;</code>)
+      </h2>
+      <p>
+        The non-breaking space (<code>&amp;nbsp;</code>) is particularly useful.
+        Normally, browsers might collapse multiple spaces in your HTML code into
+        a single space and might break lines between words to fit content.
+      </p>
+      <p><code>&amp;nbsp;</code> forces the browser to:</p>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>Render an actual space character.</li>
+        <li>Prevent a line break at that position.</li>
+      </ul>
+      <p>
+        This is useful for keeping related words or characters together, like
+        "10&nbsp;km" or "Dr.&nbsp;Smith", or for creating multiple visible
+        spaces if needed (though CSS margin/padding is usually better for layout
+        spacing).
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+
+      <h3>Example 1: Displaying HTML Code Snippets</h3>
+      <p>
+        To show HTML code itself on a webpage, you must escape the
+        <code>&lt;</code>, <code>&gt;</code>, and potentially
+        <code>&amp;</code> characters.
+      </p>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Displaying Code&lt;/title&gt;
+    &lt;style&gt; code { background: #eee; padding: 3px; border-radius: 3px; } pre { background: #f4f4f4; border: 1px solid #ccc; padding: 10px; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;How to write a paragraph in HTML&lt;/h1&gt;
+    &lt;p&gt;Use the &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; tag like this:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;
+    &amp;lt;p&amp;gt;This is paragraph text.&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;Use &amp;amp;lt;strong&amp;amp;gt; for &lt;strong&gt;important&lt;/strong&gt; text.&amp;lt;/p&amp;gt;
+    &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Notice how we used &lt;code&gt;&amp;amp;lt;&lt;/code&gt; for &lt;code&gt;&amp;lt;&lt;/code&gt;,
+       &lt;code&gt;&amp;amp;gt;&lt;/code&gt; for &lt;code&gt;&amp;gt;&lt;/code&gt;, and
+       &lt;code&gt;&amp;amp;amp;&lt;/code&gt; for &lt;code&gt;&amp;amp;&lt;/code&gt; inside the &lt;code&gt;&amp;lt;pre&amp;gt;&lt;/code&gt; block.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Using Copyright, Trademark, and Currency Symbols</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Symbols Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Product Information&lt;/h1&gt;
+    &lt;p&gt;WidgetPro&amp;trade; is the latest innovation from ACME Corp&amp;reg;.&lt;/p&gt;
+    &lt;p&gt;Price: &amp;euro;99.95 / &amp;pound;85.00 / &amp;#165;12000&lt;/p&gt; &lt;!-- Used &amp;#165; for Yen --&gt;
+
+    &lt;footer style="margin-top: 50px; font-size: 0.9em; border-top: 1px solid #ccc; padding-top: 10px;"&gt;
+        &lt;p&gt;Copyright &amp;copy; 2025 ACME Corporation. All rights reserved.&lt;/p&gt;
+        &lt;p&gt;Designed &amp;amp; Developed by AwesomeDevs.&lt;/p&gt; &lt;!-- Used &amp;amp; --&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Using Non-Breaking Spaces and Arrows</h3>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;NBSP and Arrows&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Measurements and Directions&lt;/h1&gt;
+
+    &lt;p&gt;The distance is approximately 50&amp;nbsp;km.&lt;/p&gt; &lt;!-- Keeps "50 km" together --&gt;
+    &lt;p&gt;Please contact Mr.&amp;nbsp;Jones for details.&lt;/p&gt; &lt;!-- Keeps "Mr. Jones" together --&gt;
+
+    &lt;p&gt;Navigation:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Go straight &amp;rarr;&lt;/li&gt;
+        &lt;li&gt;Turn left &amp;larr;&lt;/li&gt;
+        &lt;li&gt;Press up &amp;uarr; or down &amp;darr;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;Adding extra space: Space&amp;nbsp;&amp;nbsp;&amp;nbsp;Space&lt;/p&gt;
+    &lt;!-- Using multiple &amp;nbsp; creates visible spaces, but CSS padding/margin is usually better for layout. --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. Why do you need to use HTML entities for characters like
+            <code>&lt;</code> and <code>&gt;</code>?
+          </p>
+          <div class="answer">
+            <p>
+              Because these characters are reserved by HTML to define tags.
+              Using them directly as text content can confuse the browser and
+              lead to rendering errors. Entities (<code>&amp;lt;</code> and
+              <code>&amp;gt;</code>) tell the browser to display the characters
+              literally.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>2. What are the two ways to represent an HTML entity?</p>
+          <div class="answer">
+            <p>
+              1. By <strong>Entity Name</strong> (e.g.,
+              <code>&amp;copy;</code>)<br />2. By
+              <strong>Entity Number</strong> (Decimal or Hexadecimal, e.g.,
+              <code>&amp;#169;</code> or <code>&amp;#xA9;</code>)
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. What does the entity <code>&amp;nbsp;</code> represent, and when
+            is it useful?
+          </p>
+          <div class="answer">
+            <p>
+              It represents a non-breaking space. It's useful for preventing
+              line breaks between related words or characters (like
+              "10&nbsp;kg") and for creating visible spaces where browsers would
+              normally collapse multiple spaces.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. How would you display the text "<code
+              >Use &lt;strong&gt; for emphasis.</code
+            >" correctly on a webpage?
+          </p>
+          <div class="answer">
+            <p>
+              You would need to escape the angle brackets:
+              <code>Use &amp;lt;strong&amp;gt; for emphasis.</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>5. What is the entity name for the copyright symbol (©)?</p>
+          <div class="answer">
+            <p><code>&amp;copy;</code></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_9_semantic_html.html" class="toc-link">&larr; Day 9</a>
+        <a href="day_11_audio_video.html" class="toc-link"
+          >Go to Day 11 &rarr;</a
+        >
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      Prism.highlightAll();
+    </script>
+  </body>
+</html>

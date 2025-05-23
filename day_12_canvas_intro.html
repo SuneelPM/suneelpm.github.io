@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 12: Canvas Element (Introduction)</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #1f2937;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 90vw;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #1e40af;
+      }
+      h1 {
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        margin-top: 2rem;
+        border-bottom: 1px solid #9ca3af;
+        padding-bottom: 0.3rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+        color: #1d4ed8;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      code:not(pre code) {
+        background-color: #e5e7eb;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      pre[class*="language-"] {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 5px;
+        padding: 1em;
+        overflow: auto;
+      }
+      .quiz-section {
+        margin-top: 3rem;
+        border-top: 2px solid #3b82f6;
+        padding-top: 1.5rem;
+      }
+      .question {
+        margin-bottom: 1.5rem;
+      }
+      .question p {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #111827;
+      }
+      .answer {
+        background-color: #e0f2fe;
+        border-left: 4px solid #0ea5e9;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+      }
+      .answer code {
+        background-color: #bae6fd;
+      }
+      .toc-link {
+        display: inline-block;
+        margin: 2rem 1rem 0 0;
+        color: #2563eb;
+        font-weight: bold;
+      }
+      .nav-links {
+        text-align: center;
+        margin-top: 2rem;
+      }
+      /* Canvas Styling */
+      canvas {
+        border: 1px solid #000; /* Black border to see canvas area */
+        display: block; /* Prevent extra space below */
+        margin: 1rem auto; /* Center canvas */
+        background-color: #fff; /* White background */
+      }
+    </style>
+  </head>
+  <body class="line-numbers">
+    <div class="container">
+      <h1 class="text-3xl font-bold mb-6">
+        Day 12: Canvas Element (Introduction)
+      </h1>
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_11_audio_video.html" class="toc-link">&larr; Day 11</a>
+      </div>
+
+      <h2 class="text-2xl font-semibold mb-4">What is the Canvas Element?</h2>
+      <p>
+        The HTML <code><strong>&lt;canvas&gt;</strong></code> element provides a
+        container on a webpage where you can draw graphics dynamically using
+        scripting, typically <strong>JavaScript</strong>. Think of it as a blank
+        digital canvas.
+      </p>
+      <p>
+        By itself, the <code>&lt;canvas&gt;</code> element is just an empty
+        rectangular area. To actually draw anything, you need to use JavaScript
+        to access its <strong>rendering context</strong> (most commonly the 2D
+        context) and use the context's API (Application Programming Interface)
+        to draw shapes, text, images, and perform other graphical operations.
+      </p>
+      <p>
+        Canvas is powerful for generating visualizations, creating photo
+        manipulations, rendering game graphics in real-time, or creating other
+        dynamic graphical interfaces.
+      </p>
+      <p
+        class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4"
+        role="alert"
+      >
+        <strong>Important Distinction:</strong> Unlike SVG (Scalable Vector
+        Graphics, covered next), Canvas uses a "bitmap" or "raster" approach.
+        Once something is drawn on the canvas, the browser forgets the
+        individual shapes; it only knows about the pixels. This means canvas
+        graphics don't scale as smoothly as SVG and aren't easily inspectable or
+        interactive without additional JavaScript logic.
+      </p>
+
+      <h2 class="text-2xl font-semibold mb-4">Setting up the Canvas</h2>
+      <p>Using canvas involves two steps:</p>
+      <ol class="list-decimal list-inside mb-4 space-y-2">
+        <li>
+          <strong>HTML Setup:</strong> Add the
+          <code>&lt;canvas&gt;</code> element to your HTML, giving it an
+          <code>id</code> attribute (to easily select it with JavaScript) and
+          specifying its dimensions using the <code>width</code> and
+          <code>height</code> attributes. The content inside the
+          <code>&lt;canvas&gt;</code> tags serves as fallback content for
+          browsers that don't support canvas.
+          <pre><code class="language-html">
+&lt;canvas id="myDrawingCanvas" width="500" height="300"&gt;
+  Your browser does not support the HTML canvas element. Please upgrade.
+&lt;/canvas&gt;
+                </code></pre>
+          <p>
+            <strong>Note:</strong> It's crucial to set the canvas dimensions
+            using the HTML attributes (<code>width</code>, <code>height</code>),
+            not just CSS. CSS styling affects the size of the element container,
+            while the attributes define the actual number of pixels available
+            for drawing (the coordinate system).
+          </p>
+        </li>
+        <li>
+          <strong>JavaScript Setup:</strong> Use JavaScript to get a reference
+          to the canvas element and obtain its rendering context (usually '2d').
+          <pre><code class="language-javascript">
+// Get the canvas element from the DOM
+const canvas = document.getElementById('myDrawingCanvas');
+
+// Check if canvas is supported before proceeding
+if (canvas.getContext) {
+  // Get the 2D rendering context
+  const ctx = canvas.getContext('2d');
+
+  // Now you can use 'ctx' to draw!
+  // (Drawing code goes here)
+
+} else {
+  // Canvas not supported - fallback logic could go here
+  console.error('Canvas not supported by this browser.');
+}
+                </code></pre>
+          <p>
+            (This JavaScript code would typically go inside a
+            <code>&lt;script&gt;</code> tag at the end of your
+            <code>&lt;body&gt;</code> or in a separate <code>.js</code> file
+            linked to your HTML).
+          </p>
+        </li>
+      </ol>
+
+      <h2 class="text-2xl font-semibold mb-4">
+        The 2D Rendering Context (<code>ctx</code>)
+      </h2>
+      <p>
+        Once you have the 2D context object (commonly named <code>ctx</code>),
+        you can use its properties and methods to draw. Think of
+        <code>ctx</code> as your set of drawing tools (pens, brushes, paint
+        colors, etc.).
+      </p>
+      <p>Key Concepts:</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>
+          <strong>Coordinate System:</strong> The canvas has a coordinate system
+          where (0, 0) is the top-left corner. The X-axis increases to the
+          right, and the Y-axis increases downwards.
+        </li>
+        <li>
+          <strong>Paths:</strong> Drawing complex shapes often involves creating
+          paths. You begin a path (<code>beginPath()</code>), define points and
+          lines (<code>moveTo()</code>, <code>lineTo()</code>,
+          <code>arc()</code>, etc.), and then either stroke (outline) the path
+          (<code>stroke()</code>) or fill it (<code>fill()</code>).
+        </li>
+        <li>
+          <strong>Styles:</strong> You can set colors and styles for fills
+          (<code>fillStyle</code>) and strokes (<code>strokeStyle</code>,
+          <code>lineWidth</code>) before drawing.
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-medium mb-3">Basic Drawing Methods:</h3>
+      <ul class="list-disc list-inside space-y-1 mb-4">
+        <li>
+          <code><strong>fillStyle = color</strong></code
+          >: Sets the color/style used for filling shapes (e.g.,
+          <code>'red'</code>, <code>'#00FF00'</code>,
+          <code>'rgba(0, 0, 255, 0.5)'</code>).
+        </li>
+        <li>
+          <code><strong>fillRect(x, y, width, height)</strong></code
+          >: Draws a filled rectangle immediately.
+        </li>
+        <li>
+          <code><strong>strokeStyle = color</strong></code
+          >: Sets the color/style used for stroking (outlining) shapes.
+        </li>
+        <li>
+          <code><strong>lineWidth = value</strong></code
+          >: Sets the width of lines for stroking.
+        </li>
+        <li>
+          <code><strong>strokeRect(x, y, width, height)</strong></code
+          >: Draws the outline of a rectangle immediately.
+        </li>
+        <li>
+          <code><strong>clearRect(x, y, width, height)</strong></code
+          >: Clears the specified rectangular area, making it transparent.
+        </li>
+        <li>
+          <code><strong>beginPath()</strong></code
+          >: Starts a new drawing path.
+        </li>
+        <li>
+          <code><strong>moveTo(x, y)</strong></code
+          >: Moves the "pen" to the specified coordinates without drawing a
+          line.
+        </li>
+        <li>
+          <code><strong>lineTo(x, y)</strong></code
+          >: Adds a straight line from the current pen position to the specified
+          coordinates.
+        </li>
+        <li>
+          <code><strong>stroke()</strong></code
+          >: Draws the outline of the current path using the current
+          <code>strokeStyle</code> and <code>lineWidth</code>.
+        </li>
+        <li>
+          <code><strong>fill()</strong></code
+          >: Fills the current path using the current <code>fillStyle</code>.
+        </li>
+        <li>
+          <code><strong>closePath()</strong></code
+          >: Closes the current path by drawing a straight line back to the
+          starting point (useful before filling closed shapes).
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold mb-4">Examples</h2>
+      <p>
+        These examples show the HTML setup and the JavaScript needed to draw.
+        Remember to place the JavaScript within a
+        <code>&lt;script&gt;</code> tag, usually just before the closing
+        <code>&lt;/body&gt;</code> tag, or in an external file.
+      </p>
+
+      <h3>Example 1: Drawing Simple Filled and Stroked Rectangles</h3>
+      <canvas id="canvasRects" width="400" height="200"></canvas>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Canvas Rectangles&lt;/title&gt;
+    &lt;style&gt; canvas { border: 1px solid black; display: block; margin: 20px auto; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Drawing Rectangles&lt;/h1&gt;
+    &lt;canvas id="canvasRects" width="400" height="200"&gt;Canvas not supported.&lt;/canvas&gt;
+
+    &lt;script&gt;
+        const canvas1 = document.getElementById('canvasRects');
+        if (canvas1.getContext) {
+            const ctx1 = canvas1.getContext('2d');
+
+            // Filled rectangle
+            ctx1.fillStyle = 'rgb(200, 0, 0)'; // Red color
+            ctx1.fillRect(10, 10, 100, 80); // x, y, width, height
+
+            // Stroked rectangle
+            ctx1.strokeStyle = 'blue';
+            ctx1.lineWidth = 3;
+            ctx1.strokeRect(150, 40, 120, 100); // x, y, width, height
+
+            // Filled rectangle with transparency
+            ctx1.fillStyle = 'rgba(0, 200, 0, 0.5)'; // Green with 50% opacity
+            ctx1.fillRect(80, 70, 100, 100);
+
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 2: Drawing Lines using Paths</h3>
+      <canvas id="canvasLines" width="400" height="200"></canvas>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Canvas Lines&lt;/title&gt;
+    &lt;style&gt; canvas { border: 1px solid black; display: block; margin: 20px auto; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Drawing Lines&lt;/h1&gt;
+    &lt;canvas id="canvasLines" width="400" height="200"&gt;Canvas not supported.&lt;/canvas&gt;
+
+    &lt;script&gt;
+        const canvas2 = document.getElementById('canvasLines');
+        if (canvas2.getContext) {
+            const ctx2 = canvas2.getContext('2d');
+
+            // Draw a simple line
+            ctx2.beginPath();       // Start a new path
+            ctx2.moveTo(50, 50);    // Move the pen to (50, 50)
+            ctx2.lineTo(200, 150);  // Draw a line to (200, 150)
+            ctx2.strokeStyle = 'green';
+            ctx2.lineWidth = 5;
+            ctx2.stroke();          // Render the path outline
+
+            // Draw a triangle outline
+            ctx2.beginPath();
+            ctx2.moveTo(250, 50);   // Start point
+            ctx2.lineTo(350, 50);   // Top line
+            ctx2.lineTo(300, 150);  // Right line
+            ctx2.closePath();       // Connect back to start (creates bottom line)
+            ctx2.strokeStyle = 'purple';
+            ctx2.lineWidth = 2;
+            ctx2.stroke();
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <h3>Example 3: Drawing a Filled Triangle</h3>
+      <canvas id="canvasFill" width="400" height="200"></canvas>
+      <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Canvas Fill Path&lt;/title&gt;
+    &lt;style&gt; canvas { border: 1px solid black; display: block; margin: 20px auto; } &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Filling Paths&lt;/h1&gt;
+    &lt;canvas id="canvasFill" width="400" height="200"&gt;Canvas not supported.&lt;/canvas&gt;
+
+    &lt;script&gt;
+        const canvas3 = document.getElementById('canvasFill');
+        if (canvas3.getContext) {
+            const ctx3 = canvas3.getContext('2d');
+
+            // Draw a filled triangle
+            ctx3.beginPath();
+            ctx3.moveTo(75, 50);    // Top point
+            ctx3.lineTo(125, 150);  // Bottom right
+            ctx3.lineTo(25, 150);   // Bottom left
+            ctx3.closePath();       // Connect back to top point
+
+            ctx3.fillStyle = 'orange';
+            ctx3.fill();            // Fill the defined path
+
+             // Outline the same triangle in black
+            ctx3.strokeStyle = 'black';
+            ctx3.lineWidth = 1;
+            ctx3.stroke(); // Stroke the same path (optional)
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+
+      <div class="quiz-section">
+        <h2 class="text-2xl font-semibold mb-6">Test Your Knowledge</h2>
+
+        <div class="question">
+          <p>
+            1. What is the primary purpose of the HTML
+            <code>&lt;canvas&gt;</code> element?
+          </p>
+          <div class="answer">
+            <p>
+              It provides a container (a drawing surface) on a webpage where
+              graphics can be drawn dynamically using JavaScript.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            2. What must you use in JavaScript to actually draw onto a canvas?
+          </p>
+          <div class="answer">
+            <p>
+              You need to get the canvas element's
+              <strong>rendering context</strong>, typically the 2D context,
+              using <code>canvas.getContext('2d')</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            3. Why is it important to set the canvas size using the
+            <code>width</code> and <code>height</code> attributes in HTML,
+            rather than just using CSS?
+          </p>
+          <div class="answer">
+            <p>
+              The HTML attributes define the actual pixel dimensions of the
+              drawing surface and its coordinate system. CSS width and height
+              only style the size of the container element, potentially
+              stretching or shrinking the drawn content if it doesn't match the
+              attribute dimensions.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            4. What JavaScript method is used to draw the outline of a path
+            defined by <code>moveTo()</code> and <code>lineTo()</code>?
+          </p>
+          <div class="answer">
+            <p>The <code>stroke()</code> method of the 2D rendering context.</p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p>
+            5. What context property would you set to change the color used by
+            the <code>fillRect()</code> method?
+          </p>
+          <div class="answer">
+            <p>
+              The <code>fillStyle</code> property (e.g.,
+              <code>ctx.fillStyle = 'blue';</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="toc-link">Back to Table of Contents</a>
+        <a href="day_11_audio_video.html" class="toc-link">&larr; Day 11</a>
+        <a href="day_13_svg_intro.html" class="toc-link">Go to Day 13 &rarr;</a>
+      </div>
+    </div>
+
+    <script>
+      const canvas1 = document.getElementById("canvasRects");
+      if (canvas1 && canvas1.getContext) {
+        const ctx1 = canvas1.getContext("2d");
+        ctx1.fillStyle = "rgb(200, 0, 0)";
+        ctx1.fillRect(10, 10, 100, 80);
+        ctx1.strokeStyle = "blue";
+        ctx1.lineWidth = 3;
+        ctx1.strokeRect(150, 40, 120, 100);
+        ctx1.fillStyle = "rgba(0, 200, 0, 0.5)";
+        ctx1.fillRect(80, 70, 100, 100);
+      }
+
+      const canvas2 = document.getElementById("canvasLines");
+      if (canvas2 && canvas2.getContext) {
+        const ctx2 = canvas2.getContext("2d");
+        ctx2.beginPath();
+        ctx2.moveTo(50, 50);
+        ctx2.lineTo(200, 150);
+        ctx2.strokeStyle = "green";
+        ctx2.lineWidth = 5;
+        ctx2.stroke();
+        ctx2.beginPath();
+        ctx2.moveTo(250, 50);
+        ctx2.lineTo(350, 50);
+        ctx2.lineTo(300, 150);
+        ctx2.closePath();
+        ctx2.strokeStyle = "purple";
+        ctx2.lineWidth = 2;
+        ctx2.stroke();
+      }
+
+      const canvas3 = document.getElementById("canvasFill");
+      if (canvas3 && canvas3.getContext) {
+        const ctx3 = canvas3.getContext("2d");
+        ctx3.beginPath();
+        ctx3.moveTo(75, 50);
+        ctx3.lineTo(125, 150);
+        ctx3.lineTo(25, 150);
+        ctx3.closePath();
+        ctx3.fillStyle = "orange";
+        ctx3.fill();
+        ctx3.strokeStyle = "black";
+        ctx3.lineWidth = 1;
+        ctx3.stroke();
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+    <script>
+      Prism.plugins.lineNumbers.initialize({});
+      // Prism.highlightAll(); // Highlighting done after specific scripts
+    </script>
+  </body>
+</html>
