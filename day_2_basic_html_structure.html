@@ -12,6 +12,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         font-family: sans-serif;
@@ -36,13 +40,8 @@
       p {
         margin-bottom: 15px;
       }
-      .code-container {
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        overflow-x: auto;
+      pre {
+        border-radius: 10px;
       }
       .test-container {
         margin-top: 30px;
@@ -107,11 +106,9 @@
         correctly interpret your HTML structure.
       </p>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;div&gt;
+        <pre><code class="language-html line-numbers">&lt;div&gt;
     &lt;p&gt;This paragraph is inside a &lt;strong&gt;div&lt;/strong&gt; element.&lt;/p&gt;
-&lt;/div&gt;
-            </code></pre>
+&lt;/div&gt;</code></pre>
       </div>
       <p>
         In this example, the <code>&lt;p&gt;</code> element and the
@@ -121,13 +118,11 @@
         unexpected behavior and make your HTML harder to read and maintain.
       </p>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;!-- Incorrect Nesting --&gt;
+        <pre><code class="language-html line-numbers">&lt;!-- Incorrect Nesting --&gt;
 &lt;p&gt;&lt;strong&gt;This is bold text.&lt;/p&gt;&lt;/strong&gt;
 
 &lt;!-- Correct Nesting --&gt;
-&lt;p&gt;&lt;strong&gt;This is bold text.&lt;/strong&gt;&lt;/p&gt;
-            </code></pre>
+&lt;p&gt;&lt;strong&gt;This is bold text.&lt;/strong&gt;&lt;/p&gt;</code></pre>
       </div>
 
       <h2 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">
@@ -160,10 +155,8 @@
         </li>
       </ul>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;div style="border: 1px solid red;"&gt;This is a block-level div.&lt;/div&gt;
-&lt;p style="border: 1px solid green;"&gt;This is a block-level paragraph.&lt;/p&gt;
-            </code></pre>
+        <pre><code class="language-html line-numbers">&lt;div style="border: 1px solid red;"&gt;This is a block-level div.&lt;/div&gt;
+&lt;p style="border: 1px solid green;"&gt;This is a block-level paragraph.&lt;/p&gt;</code></pre>
       </div>
 
       <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
@@ -186,10 +179,8 @@
         </li>
       </ul>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;span style="border: 1px solid blue;"&gt;This is an inline span.&lt;/span&gt;
-&lt;strong style="border: 1px solid orange;"&gt;This is inline bold text.&lt;/strong&gt;
-            </code></pre>
+        <pre><code class="language-html line-numbers">&lt;span style="border: 1px solid blue;"&gt;This is an inline span.&lt;/span&gt;
+&lt;strong style="border: 1px solid orange;"&gt;This is inline bold text.&lt;/strong&gt;</code></pre>
       </div>
       <p>
         Understanding the difference between block-level and inline elements is
@@ -251,24 +242,20 @@
         Example 1: A Nested Structure
       </h3>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;article&gt;
+        <pre><code class="language-html line-numbers">&lt;article&gt;
     &lt;h2&gt;Article Title&lt;/h2&gt;
     &lt;p&gt;This is the main content of the article. &lt;em&gt;It includes emphasized text.&lt;/em&gt;&lt;/p&gt;
-&lt;/article&gt;
-            </code></pre>
+&lt;/article&gt;</code></pre>
       </div>
 
       <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
         Example 2: Block and Inline Elements
       </h3>
       <div class="code-container">
-        <pre><code class="language-html line-numbers">
-&lt;div style="background-color: #eee; padding: 10px;"&gt;
+        <pre><code class="language-html line-numbers">&lt;div style="background-color: #eee; padding: 10px;"&gt;
     This is a &lt;span style="color: blue;"&gt;block-level&lt;/span&gt; element containing an
     &lt;strong&gt;inline&lt;/strong&gt; element.
-&lt;/div&gt;
-            </code></pre>
+&lt;/div&gt;</code></pre>
       </div>
 
       <h3 class="text-xl font-semibold text-blue-600 mt-4 mb-2">
@@ -345,7 +332,9 @@
         </div>
       </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
   </body>
 </html>
